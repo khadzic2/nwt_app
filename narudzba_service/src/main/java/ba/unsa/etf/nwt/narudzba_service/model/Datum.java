@@ -15,6 +15,9 @@ public class Datum {
 
     private LocalDate datumOdgode;
 
+    @OneToOne(mappedBy = "datum")
+    private Narudzba narudzba;
+
     public Datum() {
     }
 
@@ -41,5 +44,13 @@ public class Datum {
 
     public void setDatumOdgode(LocalDate datumOdgode) {
         this.datumOdgode = datumOdgode;
+    }
+
+    public Narudzba getNarudzba() {
+        return narudzba;
+    }
+
+    public void setNarudzba(Narudzba narudzba) {
+        this.narudzba = narudzba;
     }
 }

@@ -13,9 +13,22 @@ public class Narudzba {
 
     private Integer artiklId;
 
-    private Integer datum;
+    @OneToOne
+    @JoinColumn(name = "datum_id")
+    private Datum datum;
 
-    private Integer snID;
+    @OneToOne
+    @JoinColumn(name = "stanje_id")
+    private StanjeNarudzba stanje;
+
+    public Narudzba(){}
+
+    public Narudzba(Integer korisnikId, Integer artiklId, Datum datum,StanjeNarudzba stanje) {
+        this.korisnikId = korisnikId;
+        this.artiklId = artiklId;
+        this.datum = datum;
+        this.stanje = stanje;
+    }
 
     public Integer getId() {
         return id;
@@ -29,11 +42,10 @@ public class Narudzba {
         return artiklId;
     }
 
-    public Integer getDatum() {
+    public Datum getDatum() {
         return datum;
     }
-
-    public Integer getSnID() {
-        return snID;
+    public StanjeNarudzba getStanje(){
+        return stanje;
     }
 }

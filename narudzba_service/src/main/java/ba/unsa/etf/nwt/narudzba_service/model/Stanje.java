@@ -2,6 +2,8 @@ package ba.unsa.etf.nwt.narudzba_service.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Stanje {
 
@@ -10,8 +12,8 @@ public class Stanje {
     private Integer id;
 
     private String stanje;
-
-    private Integer snID;
+    @OneToMany(mappedBy = "stanje")
+    private List<StanjeNarudzba> stanja_narudzbe;
 
     public Stanje(){}
     public Stanje(String stanje) {
@@ -30,7 +32,11 @@ public class Stanje {
         this.stanje = stanje;
     }
 
-    public Integer getSnID() {
-        return snID;
+    public List<StanjeNarudzba> getStanja_narudzbe() {
+        return stanja_narudzbe;
+    }
+
+    public void setStanja_narudzbe(List<StanjeNarudzba> stanja_narudzbe) {
+        this.stanja_narudzbe = stanja_narudzbe;
     }
 }

@@ -8,19 +8,29 @@ public class StanjeNarudzba {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer narudzbaId;
+    @OneToOne(mappedBy = "stanje")
+    private Narudzba narudzba;
 
-    private Integer stanjeId;
+    @ManyToOne
+    @JoinColumn(name = "stanje_id")
+    private Stanje stanje;
+
+    public StanjeNarudzba() {
+    }
+
+    public StanjeNarudzba(Stanje stanje) {
+        this.stanje = stanje;
+    }
 
     public Integer getId() {
         return id;
     }
 
-    public Integer getNarudzbaId() {
-        return narudzbaId;
+    public Narudzba getNarudzbaId() {
+        return narudzba;
     }
 
-    public Integer getStanjeId() {
-        return stanjeId;
+    public Stanje getStanje() {
+        return stanje;
     }
 }
