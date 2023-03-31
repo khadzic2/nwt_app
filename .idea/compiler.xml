@@ -6,15 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="artikalKorpa_service" />
         <module name="narudzba_service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="artikalKorpa_service" target="17" />
       <module name="narudzba_service" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="artikalKorpa_service" options="-parameters" />
       <module name="narudzba_service" options="-parameters" />
     </option>
   </component>
