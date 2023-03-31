@@ -22,14 +22,6 @@ public class ArtikalKorpa {
         return id;
     }
 
-    public Artikal getArtikal() {
-        return artikal;
-    }
-
-    public void setArtikal(Artikal artikal) {
-        this.artikal = artikal;
-    }
-
     public Korpa getKorpa() {
         return korpa;
     }

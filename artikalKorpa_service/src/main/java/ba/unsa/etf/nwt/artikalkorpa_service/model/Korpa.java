@@ -14,7 +14,7 @@ public class Korpa {
 
     private LocalDate datumDodavanja;
 
-    @OneToMany(mappedBy = "artikal")
+    @OneToMany(mappedBy = "id")
     private List<ArtikalKorpa> artikli;
 
     @OneToOne

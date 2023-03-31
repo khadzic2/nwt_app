@@ -12,10 +12,17 @@ public class Artikal {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
+    @OneToMany(mappedBy = "id")
+    private List<ArtikalKorpa> artikli;
+
     private String naziv;
 
     private String opis;
     public Artikal(){
+    }
+
+    public Artikal(String naziv) {
+        this.naziv = naziv;
     }
 
     public Integer getId() {

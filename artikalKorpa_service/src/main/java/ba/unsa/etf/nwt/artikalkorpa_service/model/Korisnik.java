@@ -8,7 +8,8 @@ public class Korisnik {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne(mappedBy = "korpa_id")
+    @OneToOne
+    @JoinColumn(name = "korpa_id")
     private Korpa korpa;
 
 
