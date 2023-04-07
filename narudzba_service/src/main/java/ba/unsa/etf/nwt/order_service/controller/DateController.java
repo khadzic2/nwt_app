@@ -22,20 +22,15 @@ class DateController{
         this.dateRepository = dateRepository;
     }
 
-    // Aggregate root
-    // tag::get-aggregate-root[]
     @GetMapping("/date")
     List<Date> all() {
         return dateRepository.findAll();
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("/date")
-    Date newEmployee(@RequestBody Date newDate) {
+    Date newDate(@RequestBody Date newDate) {
         return dateRepository.save(newDate);
     }
-
-    // Single item
 
     @GetMapping("/date/{id}")
     Date one(@PathVariable Integer id) {

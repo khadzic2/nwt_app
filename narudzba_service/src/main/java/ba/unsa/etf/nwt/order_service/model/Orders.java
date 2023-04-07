@@ -48,4 +48,20 @@ public class Orders {
     public State getState(){
         return state;
     }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 }
