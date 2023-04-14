@@ -3,9 +3,11 @@ package ba.unsa.etf.nwt.order_service;
 import ba.unsa.etf.nwt.order_service.model.Date;
 import ba.unsa.etf.nwt.order_service.model.Orders;
 import ba.unsa.etf.nwt.order_service.model.State;
+import ba.unsa.etf.nwt.order_service.model.User;
 import ba.unsa.etf.nwt.order_service.repository.DateRepository;
 import ba.unsa.etf.nwt.order_service.repository.OrderRepository;
 import ba.unsa.etf.nwt.order_service.repository.StateRepository;
+import ba.unsa.etf.nwt.order_service.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +23,7 @@ public class OrderServiceApplication {
     }
 
     @Bean
-    CommandLineRunner run(DateRepository dateRepository, OrderRepository orderRepository, StateRepository stateRepository){
+    CommandLineRunner run(DateRepository dateRepository, OrderRepository orderRepository, StateRepository stateRepository, UserRepository userRepository){
         return args -> {
             Date date1 = new Date(LocalDate.now().plusDays(5), LocalDate.now().plusDays(10));
             Date date2 = new Date(LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
@@ -45,11 +47,14 @@ public class OrderServiceApplication {
             stateRepository.save(state3);
             stateRepository.save(state4);
 
-            Orders orders1 = new Orders(1,1, date1, state1);
-            Orders orders2 = new Orders(1,2, date2, state1);
-            Orders orders3 = new Orders(1,3, date3, state2);
-            Orders orders4 = new Orders(1,4, date4, state3);
-            Orders orders5 = new Orders(1,5, date5, state4);
+            User user = new User("Kanita","Hadzic");
+            userRepository.save(user);
+
+            Orders orders1 = new Orders(user,1, date1, state1);
+            Orders orders2 = new Orders(user,2, date2, state1);
+            Orders orders3 = new Orders(user,3, date3, state2);
+            Orders orders4 = new Orders(user,4, date4, state3);
+            Orders orders5 = new Orders(user,5, date5, state4);
 
             orderRepository.save(orders1);
             orderRepository.save(orders2);

@@ -1,12 +1,14 @@
 package ba.unsa.etf.nwt.order_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
 public class Date {
-
+    @NotNull(message = "Can't be null!")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -15,6 +17,7 @@ public class Date {
 
     private LocalDate delayDate;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "date")
     private Orders orders;
 
@@ -34,16 +37,16 @@ public class Date {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDate datumIsporuke) {
-        this.deliveryDate = datumIsporuke;
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public LocalDate getDelayDate() {
         return delayDate;
     }
 
-    public void setDelayDate(LocalDate datumOdgode) {
-        this.delayDate = datumOdgode;
+    public void setDelayDate(LocalDate delayDate) {
+        this.delayDate = delayDate;
     }
 
     public Orders getOrder() {

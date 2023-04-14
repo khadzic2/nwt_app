@@ -38,7 +38,7 @@ public class OrderController {
                     orders.setDate(newOrders.getDate());
                     orders.setState(newOrders.getState());
                     orders.setItemId(newOrders.getItemId());
-                    orders.setUserId(newOrders.getUserId());
+                    orders.setUser(newOrders.getUser());
                     return orderRepository.save(orders);
                 }).orElseThrow(() -> new NotFoundException(id,"order"));
 //                .orElseGet(() -> {
