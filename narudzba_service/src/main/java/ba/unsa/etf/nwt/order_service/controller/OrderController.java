@@ -1,54 +1,43 @@
 package ba.unsa.etf.nwt.order_service.controller;
 
-import ba.unsa.etf.nwt.order_service.exception.NotFoundException;
 import ba.unsa.etf.nwt.order_service.model.Orders;
-import ba.unsa.etf.nwt.order_service.repository.OrderRepository;
+import ba.unsa.etf.nwt.order_service.service.OrdersService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 public class OrderController {
-    private final OrderRepository orderRepository;
+    private final OrdersService ordersService;
 
-    OrderController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    OrderController(OrdersService ordersService) {
+        this.ordersService = ordersService;
     }
 
     @GetMapping("/orders")
-    List<Orders> all() {
-        return orderRepository.findAll();
+    ResponseEntity<List<Orders>> all() {
+        return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatus.OK);
     }
 
     @PostMapping("/orders")
-    Orders newOrders(@RequestBody Orders newOrders) {
-        return orderRepository.save(newOrders);
+    ResponseEntity<Orders> newOrders(@RequestBody @Valid Orders newOrders) {
+        return new ResponseEntity<>(ordersService.addOrder(newOrders),HttpStatus.CREATED);
     }
 
     @GetMapping("/orders/{id}")
-    Orders one(@PathVariable Integer id) {
-        return orderRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id,"order"));
+    ResponseEntity<Orders> one(@PathVariable Integer id) {
+        return new ResponseEntity<>(ordersService.getOrderById(id),HttpStatus.OK);
     }
 
     @PutMapping("/orders/{id}")
-    Orders replaceOrders(@RequestBody Orders newOrders, @PathVariable Integer id) {
-
-        return orderRepository.findById(id)
-                .map(orders -> {
-                    orders.setDate(newOrders.getDate());
-                    orders.setState(newOrders.getState());
-                    orders.setItemId(newOrders.getItemId());
-                    orders.setUser(newOrders.getUser());
-                    return orderRepository.save(orders);
-                }).orElseThrow(() -> new NotFoundException(id,"order"));
-//                .orElseGet(() -> {
-//                    newDate.setId(id);
-//                    return repository.save(newEmployee);
-//                });
+    ResponseEntity<Orders> replaceOrders(@RequestBody @Valid Orders newOrders, @PathVariable Integer id) {
+        return new ResponseEntity<>(ordersService.updateOrder(newOrders,id),HttpStatus.OK);
     }
 
     @DeleteMapping("/orders/{id}")
     void deleteOrders(@PathVariable Integer id) {
-        orderRepository.deleteById(id);
+        ordersService.deleteOrder(id);
     }
 }

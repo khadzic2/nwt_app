@@ -2,21 +2,23 @@ package ba.unsa.etf.nwt.order_service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 public class User {
-    @NotNull(message = "Can't be null!")
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    @NotBlank(message = "User's first name can't be null or blank")
+    @Size(min = 3, message = "Length of user's first name must be at least 3")
     private String firstName;
-
+    @NotBlank(message = "Last name can't be null or blank")
+    @Size(min = 3, message = "Length of user's last name must be at least 3")
     private String lastName;
-
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Orders> order;

@@ -1,9 +1,6 @@
 package ba.unsa.etf.nwt.order_service;
 
-import ba.unsa.etf.nwt.order_service.model.Date;
-import ba.unsa.etf.nwt.order_service.model.Orders;
-import ba.unsa.etf.nwt.order_service.model.State;
-import ba.unsa.etf.nwt.order_service.model.User;
+import ba.unsa.etf.nwt.order_service.model.*;
 import ba.unsa.etf.nwt.order_service.repository.DateRepository;
 import ba.unsa.etf.nwt.order_service.repository.OrderRepository;
 import ba.unsa.etf.nwt.order_service.repository.StateRepository;
@@ -26,10 +23,10 @@ public class OrderServiceApplication {
     CommandLineRunner run(DateRepository dateRepository, OrderRepository orderRepository, StateRepository stateRepository, UserRepository userRepository){
         return args -> {
             Date date1 = new Date(LocalDate.now().plusDays(5), LocalDate.now().plusDays(10));
-            Date date2 = new Date(LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
-            Date date3 = new Date(LocalDate.now().minusDays(15), LocalDate.now().plusDays(10));
-            Date date4 = new Date(LocalDate.now().minusDays(15), LocalDate.now().plusDays(10));
-            Date date5 = new Date(LocalDate.now().minusDays(15), LocalDate.now().plusDays(10));
+            Date date2 = new Date(LocalDate.now().plusDays(5), LocalDate.now().plusDays(5));
+            Date date3 = new Date(LocalDate.now().plusDays(15), LocalDate.now().plusDays(10));
+            Date date4 = new Date(LocalDate.now().plusDays(15), LocalDate.now().plusDays(10));
+            Date date5 = new Date(LocalDate.now().plusDays(15), LocalDate.now().plusDays(10));
 
             dateRepository.save(date1);
             dateRepository.save(date2);
@@ -37,10 +34,10 @@ public class OrderServiceApplication {
             dateRepository.save(date4);
             dateRepository.save(date5);
 
-            State state1 = new State("Pregled narudzbe");
-            State state2 = new State("Nabavka materijala");
-            State state3 = new State("Montiranje");
-            State state4 = new State("Spremno za isporuku");
+            State state1 = new State(StateType.PREGLED_NARUDZBE.label);
+            State state2 = new State(StateType.NABAVKA_MATERIJALA.label);
+            State state3 = new State(StateType.MONTIRANJE.label);
+            State state4 = new State(StateType.SPREMNO_ZA_ISPORUKU.label);
 
             stateRepository.save(state1);
             stateRepository.save(state2);

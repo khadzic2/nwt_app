@@ -3,25 +3,26 @@ package ba.unsa.etf.nwt.order_service.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Orders {
-    @NotNull(message = "Can't be null!")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    @NotNull(message = "Ordered item can't be null")
     private Integer itemId;
-
+    @NotNull(message = "Date of order can't be null")
     @JsonIgnoreProperties("order")
     @OneToOne
     @JoinColumn(name = "date_id")
     private Date date;
+    @NotNull(message = "State of order can't be null")
     @JsonIgnoreProperties("order")
     @ManyToOne
     @JoinColumn(name = "state_id")
     private State state;
+    @NotNull(message = "User of order can't be null")
     @JsonIgnoreProperties("order")
     @ManyToOne
     @JoinColumn(name = "user_id")

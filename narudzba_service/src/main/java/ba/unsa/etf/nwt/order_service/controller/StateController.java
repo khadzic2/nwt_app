@@ -1,53 +1,39 @@
 package ba.unsa.etf.nwt.order_service.controller;
 
-import ba.unsa.etf.nwt.order_service.exception.NotFoundException;
 import ba.unsa.etf.nwt.order_service.model.State;
-import ba.unsa.etf.nwt.order_service.repository.StateRepository;
+import ba.unsa.etf.nwt.order_service.service.StateService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class StateController {
-    private final StateRepository stateRepository;
+    private final StateService stateService;
 
-    StateController(StateRepository stateRepository) {
-        this.stateRepository = stateRepository;
+    StateController(StateService stateService) {
+        this.stateService = stateService;
     }
 
     @GetMapping("/state")
-    List<State> all() {
-        return stateRepository.findAll();
+    ResponseEntity<List<State>> all() {
+        return new ResponseEntity<>(stateService.getAllStates(), HttpStatus.OK);
     }
 
     @PostMapping("/state")
-    State newState(@RequestBody State newState) {
-        return stateRepository.save(newState);
+    ResponseEntity<State> newState(@RequestBody @Valid State newState) {
+        return new ResponseEntity<>(stateService.addState(newState),HttpStatus.CREATED);
     }
 
     @GetMapping("/state/{id}")
-    State one(@PathVariable Integer id) {
-        return stateRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id,"state"));
-    }
-
-    @PutMapping("/state/{id}")
-    State replaceState(@RequestBody State newState, @PathVariable Integer id) {
-
-        return stateRepository.findById(id)
-                .map(state -> {
-                    state.setState(newState.getState());
-                    state.setOrders(newState.getOrders());
-                    return stateRepository.save(state);
-                }).orElseThrow(() -> new NotFoundException(id,"state"));
-//                .orElseGet(() -> {
-//                    newDate.setId(id);
-//                    return repository.save(newEmployee);
-//                });
+    ResponseEntity<State> one(@PathVariable Integer id) {
+        return new ResponseEntity<>(stateService.getStateById(id),HttpStatus.OK);
     }
 
     @DeleteMapping("/state/{id}")
     void deleteState(@PathVariable Integer id) {
-        stateRepository.deleteById(id);
+        stateService.deleteState(id);
     }
 }

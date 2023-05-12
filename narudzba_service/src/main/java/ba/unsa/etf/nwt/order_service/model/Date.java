@@ -3,18 +3,19 @@ package ba.unsa.etf.nwt.order_service.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
 public class Date {
-    @NotNull(message = "Can't be null!")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    @NotNull(message = "Delivery date can't be null")
+    @FutureOrPresent(message = "Delivery date can't be in past")
     private LocalDate deliveryDate;
-
+    @FutureOrPresent(message = "Delay date can't be in past")
     private LocalDate delayDate;
 
     @JsonIgnore

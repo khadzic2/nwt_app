@@ -1,33 +1,33 @@
 package ba.unsa.etf.nwt.order_service.controller;
-import java.util.List;
-import ba.unsa.etf.nwt.order_service.exception.NotFoundException;
+
 import ba.unsa.etf.nwt.order_service.model.User;
-import ba.unsa.etf.nwt.order_service.repository.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import ba.unsa.etf.nwt.order_service.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 
 public class UserController {
 
-    private final UserRepository repository;
+    private final UserService userService;
 
-    UserController(UserRepository repository) {
-        this.repository = repository;
+    UserController(UserService userService) {
+        this.userService = userService;
     }
     @GetMapping("/users")
-    List<User> all() {
-        return repository.findAll();
+    ResponseEntity<List<User>> all() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
     @PostMapping("/user")
-    User newUser(@RequestBody User user) {
-        return repository.save(user);
+    ResponseEntity<User> newUser(@Valid @RequestBody User user) {
+        return new ResponseEntity<>(userService.addUser(user),HttpStatus.CREATED);
     }
     @GetMapping("/user/{id}")
-    User one(@PathVariable Integer id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new NotFoundException(id,"user"));
+    ResponseEntity<User> one(@PathVariable Integer id) {
+        return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
     }
 }
