@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -27,6 +28,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,10 +59,10 @@ public class ItemControllerTest {
     }
 
     private Item item1;
-    private Item name;
-    private Item description1;
-    private Specifications specifications1;
-    private SelectedSpecifications selectedSpecifications1;
+    // private Item name1;
+    // private Item description1;
+    //private Specifications specifications1;
+    //private SelectedSpecifications selectedSpecifications1;
 
     @BeforeEach
     void setup() {
@@ -69,5 +73,48 @@ public class ItemControllerTest {
         List<Item> records = new ArrayList<>(Arrays.asList(item1, item2, item3));
         itemRepository.saveAll(records);
     }
+
+
+    @Test
+    void addItem() throws Exception {
+        mockMvc.perform(post("/")
+                .content("{\n" +
+                        "\"name\": \"Sofa\",\n" +
+                        "\"description\": \"new sofa\",\n" +
+                        "\"price\": 12.5,\n" +
+                        "\"status\": \"AVAILABLE\",\n" +
+                        "}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+/*
+    @Test
+    void addItemBadRequest() throws Exception {
+        mockMvc.perform(post("/api/item")
+                        .content("{\n" +
+                                "\"name\": \"Table\",\n" +
+                                "\"description\": \"new table\",\n" +
+                                "\"price\": 12.5,\n" +
+                                "\"status\": \"AVAILABLE\",\n" +
+                                "}")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.name").value("Chair"));
+    }
+
+ */
+
+    @Test
+    public void createStateSuccessTest() throws Exception{
+        mockMvc.perform(post("/state")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.format("{\n" +
+                        "\"state\" : \"Nvvvvv\"" +
+                        "\n" +
+                        "}")));
+    }
+
 
 }
