@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/artikalKorpa_service/artikalKorpa_service.iml" filepath="$PROJECT_DIR$/artikalKorpa_service/artikalKorpa_service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/itemCart_service/itemCart_service.iml" filepath="$PROJECT_DIR$/itemCart_service/itemCart_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/narudzba_service/narudzba_service.iml" filepath="$PROJECT_DIR$/narudzba_service/narudzba_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/nwt_app.iml" filepath="$PROJECT_DIR$/nwt_app.iml" />
     </modules>
