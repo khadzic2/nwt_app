@@ -9,7 +9,6 @@ import java.util.Collection;
 public class Cart {
 
     @Id
-    @NotNull(message="Can't be null!")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 

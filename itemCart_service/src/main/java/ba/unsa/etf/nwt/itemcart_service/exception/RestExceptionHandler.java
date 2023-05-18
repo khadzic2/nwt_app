@@ -1,5 +1,4 @@
 package ba.unsa.etf.nwt.itemcart_service.exception;
-
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

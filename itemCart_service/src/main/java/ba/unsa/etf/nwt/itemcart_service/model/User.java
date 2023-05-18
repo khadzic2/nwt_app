@@ -1,11 +1,7 @@
 package ba.unsa.etf.nwt.itemcart_service.model;
-
 import jakarta.persistence.*;
-
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-
 
 @Entity
 public class User {
