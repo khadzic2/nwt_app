@@ -6,9 +6,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="configuration-service" />
-        <module name="narudzba_service" />
-        <module name="item_service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

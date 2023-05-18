@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/configuration-service/configuration-service.iml" filepath="$PROJECT_DIR$/configuration-service/configuration-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/item_service/item_service.iml" filepath="$PROJECT_DIR$/item_service/item_service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/narudzba_service/narudzba_service.iml" filepath="$PROJECT_DIR$/narudzba_service/narudzba_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/nwt_app.iml" filepath="$PROJECT_DIR$/nwt_app.iml" />
     </modules>
   </component>
