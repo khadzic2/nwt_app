@@ -24,6 +24,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="configuration_service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
       <module name="itemCart_service" options="-parameters" />
       <module name="narudzba_service" options="-parameters" />
       <module name="user_service" options="-parameters" />
