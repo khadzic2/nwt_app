@@ -11,7 +11,7 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotNull(message = "Ordered item can't be null")
-    private Integer itemId;
+    private Integer itemOrderId;
     @NotNull(message = "Date of order can't be null")
     @JsonIgnoreProperties("order")
     @OneToOne
@@ -30,9 +30,9 @@ public class Orders {
 
     public Orders(){}
 
-    public Orders(User user, Integer itemId, Date date, State state) {
+    public Orders(User user, Integer itemOrderId, Date date, State state) {
         this.user = user;
-        this.itemId = itemId;
+        this.itemOrderId = itemOrderId;
         this.date = date;
         this.state = state;
     }
@@ -45,8 +45,8 @@ public class Orders {
         return user;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public Integer getItemOrderId() {
+        return itemOrderId;
     }
 
     public Date getDate() {
@@ -60,8 +60,8 @@ public class Orders {
         this.user = user;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItemOrderId(Integer itemId) {
+        this.itemOrderId = itemId;
     }
 
     public void setDate(Date date) {

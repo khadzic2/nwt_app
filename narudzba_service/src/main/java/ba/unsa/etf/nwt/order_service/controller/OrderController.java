@@ -17,27 +17,32 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    ResponseEntity<List<Orders>> all() {
+    public ResponseEntity<List<Orders>> all() {
         return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatus.OK);
     }
 
     @PostMapping("/orders")
-    ResponseEntity<Orders> newOrders(@RequestBody @Valid Orders newOrders) {
+    public ResponseEntity<Orders> newOrders(@RequestBody @Valid Orders newOrders) {
         return new ResponseEntity<>(ordersService.addOrder(newOrders),HttpStatus.CREATED);
     }
 
     @GetMapping("/orders/{id}")
-    ResponseEntity<Orders> one(@PathVariable Integer id) {
+    public ResponseEntity<Orders> one(@PathVariable Integer id) {
         return new ResponseEntity<>(ordersService.getOrderById(id),HttpStatus.OK);
     }
 
     @PutMapping("/orders/{id}")
-    ResponseEntity<Orders> replaceOrders(@RequestBody @Valid Orders newOrders, @PathVariable Integer id) {
+    public ResponseEntity<Orders> replaceOrders(@RequestBody @Valid Orders newOrders, @PathVariable Integer id) {
         return new ResponseEntity<>(ordersService.updateOrder(newOrders,id),HttpStatus.OK);
     }
 
     @DeleteMapping("/orders/{id}")
-    void deleteOrders(@PathVariable Integer id) {
+    public void deleteOrders(@PathVariable Integer id) {
         ordersService.deleteOrder(id);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<Orders>> getOrdersFromUser(Integer id){
+        return new ResponseEntity<>(ordersService.getOrdersFromUser(id),HttpStatus.OK);
     }
 }
