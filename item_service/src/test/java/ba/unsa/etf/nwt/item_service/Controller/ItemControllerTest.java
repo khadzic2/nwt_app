@@ -67,9 +67,9 @@ public class ItemControllerTest {
     @BeforeEach
     void setup() {
         itemRepository.deleteAll();
-        item1 = new Item("Table", "new table", 12.5, Item.StatusType.AVAILABLE);
-        Item item2 = new Item("Chair", "new chair white", 15.5, Item.StatusType.AVAILABLE);
-        Item item3 = new Item("Chair101", "A new one", 20.5, Item.StatusType.NOT_AVAILABLE);
+        item1 = new Item("Table", "new table", 12.5, Item.StatusType.AVAILABLE, 12);
+        Item item2 = new Item("Chair", "new chair white", 15.5, Item.StatusType.AVAILABLE, 15);
+        Item item3 = new Item("Chair101", "A new one", 20.5, Item.StatusType.NOT_AVAILABLE, 30);
         List<Item> records = new ArrayList<>(Arrays.asList(item1, item2, item3));
         itemRepository.saveAll(records);
     }

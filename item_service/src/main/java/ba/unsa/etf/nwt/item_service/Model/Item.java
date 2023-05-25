@@ -26,6 +26,7 @@ public class Item {
     @NotNull(message="Status can't be null!")
     @Enumerated(EnumType.STRING)
     private StatusType status;
+    private Integer manufacturingdays;
 
     @OneToMany(mappedBy = "item")
     private List<Specifications> specifications;
@@ -36,12 +37,13 @@ public class Item {
 
     public Item() {
     }
-    public Item(String name, String description, Double price, StatusType status) {
+    public Item(String name, String description, Double price, StatusType status, Integer manufacturingdays) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price=price;
         this.status = status;
+        this.manufacturingdays=manufacturingdays;
     }
 
     public StatusType getStatus() {
@@ -71,8 +73,16 @@ public class Item {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getManufacturingdays() {
+        return manufacturingdays;
+    }
+    public void setManufacturingdays(Integer manufacturingdays) {
+        this.manufacturingdays = manufacturingdays;
+    }
+
+
 }

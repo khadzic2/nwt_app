@@ -15,9 +15,9 @@ public class ItemServiceApplication {
     @Bean
     public CommandLineRunner demo(ItemRepository repository) {
         return (args) -> {
-            repository.save(new Item("Stolica", "Radna stolica", 120.5, Item.StatusType.AVAILABLE));
-            repository.save(new Item("Sto", "Bijeli sto", 150.3, Item.StatusType.NOT_AVAILABLE));
-            repository.save(new Item("Kauc", "Udobni kauc",200.0, Item.StatusType.AVAILABLE));
+            repository.save(new Item("Stolica", "Radna stolica", 120.5, Item.StatusType.AVAILABLE, 15));
+            repository.save(new Item("Sto", "Bijeli sto", 150.3, Item.StatusType.NOT_AVAILABLE, 20));
+            repository.save(new Item("Kauc", "Udobni kauc",200.0, Item.StatusType.AVAILABLE, 10));
         };
     }
 

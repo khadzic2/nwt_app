@@ -43,6 +43,7 @@ public class ItemService {
         oldItem.setName(newItem.getName());
         oldItem.setDescription(newItem.getDescription());
         oldItem.setStatus(newItem.getStatus());
+        oldItem.setManufacturingdays(newItem.getManufacturingdays());
 
         itemRepository.save(oldItem);
         return oldItem;
