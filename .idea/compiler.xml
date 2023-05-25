@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="configuration_service" />
-        <module name="user_service" />
         <module name="eureka_service" />
         <module name="narudzba_service" />
       </profile>
