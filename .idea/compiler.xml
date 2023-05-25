@@ -2,23 +2,33 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="configuration_service" />
+        <module name="user_service" />
+        <module name="itemCart_service" />
+        <module name="eureka-server" />
+        <module name="narudzba_service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="configuration-service" target="17" />
-      <module name="item_service" target="17" />
+      <module name="configuration_service" target="17" />
+      <module name="eureka-server" target="20" />
+      <module name="itemCart_service" target="17" />
       <module name="narudzba_service" target="19" />
+      <module name="user_service" target="20" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="configuration-service" options="-parameters" />
-      <module name="item_service" options="-parameters" />
+      <module name="configuration_service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="itemCart_service" options="-parameters" />
       <module name="narudzba_service" options="-parameters" />
+      <module name="user_service" options="-parameters" />
     </option>
   </component>
 </project>
