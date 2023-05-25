@@ -22,9 +22,6 @@ public class Role {
     @NotBlank(message = "Name can't be blank")
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> roleUsers;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;

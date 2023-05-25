@@ -17,8 +17,9 @@ public class RoleService {
     @Autowired
     private UserRepository userRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, UserRepository userRepository ) {
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Role> getAllRoles(){
@@ -34,9 +35,9 @@ public class RoleService {
     }
 
     public void addRoleToUser(String username, String roleName) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByFirstName(username);
         Role role = roleRepository.findByName(roleName);
-        user.getRoles().add(role);
+        user.setRole(role);
         userRepository.save(user);
     }
 }

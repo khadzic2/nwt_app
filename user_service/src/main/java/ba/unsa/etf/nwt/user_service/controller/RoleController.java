@@ -14,8 +14,8 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    RoleController(RoleService userService) {
-        this.roleService = userService;
+    RoleController(RoleService roleService) {
+        this.roleService = roleService;
     }
     @GetMapping("/roles")
     ResponseEntity<List<Role>> all() {

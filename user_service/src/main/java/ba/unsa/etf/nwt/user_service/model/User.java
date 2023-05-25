@@ -20,8 +20,16 @@ public class User {
     @Size(min = 3, message = "Length of user's last name must be at least 3")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Role role = new Role();
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
@@ -50,7 +58,4 @@ public class User {
         return lastName;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
-    }
 }
