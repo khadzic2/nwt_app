@@ -11,8 +11,8 @@
     <groupId>ba.unsa.etf.nwt</groupId>
     <artifactId>narudzba_service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>narudzba_service</name>
-    <description>narudzba_service</description>
+    <name>order_service</name>
+    <description>order_service</description>
     <properties>
         <java.version>19</java.version>
         <spring-cloud.version>2022.0.2</spring-cloud.version>
