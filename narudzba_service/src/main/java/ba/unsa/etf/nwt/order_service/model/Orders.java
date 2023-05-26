@@ -23,15 +23,12 @@ public class Orders {
     @JoinColumn(name = "state_id")
     private State state;
     @NotNull(message = "User of order can't be null")
-    @JsonIgnoreProperties("order")
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Integer userId;
 
     public Orders(){}
 
-    public Orders(User user, Integer itemOrderId, Date date, State state) {
-        this.user = user;
+    public Orders(Integer userId, Integer itemOrderId, Date date, State state) {
+        this.userId = userId;
         this.itemOrderId = itemOrderId;
         this.date = date;
         this.state = state;
@@ -41,8 +38,8 @@ public class Orders {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUser() {
+        return userId;
     }
 
     public Integer getItemOrderId() {
@@ -56,8 +53,8 @@ public class Orders {
         return state;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Integer userId) {
+        this.userId = userId;
     }
 
     public void setItemOrderId(Integer itemId) {
