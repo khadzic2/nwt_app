@@ -1,0 +1,61 @@
+spring:
+application:
+  name: api-gateway
+cloud:
+  gateway:
+    routes:
+      - id: ingredient-service
+        predicates:
+          - Path=/api/ingredients/**,/api/ingredientPictures/**,/api/ingredientRecipes/**
+        uri: lb://ingredient-service
+        filters:
+          - StripPrefix=0
+      - id: rating-service
+        predicates:
+          - Path=/api/ratings/**
+        uri: lb://rating-service
+        filters:
+          - StripPrefix=0
+      - id: recipe-service
+        predicates:
+          - Path=/api/recipes/**,/api/categorys/**,/api/pictures/**,/api/steps/**
+        uri: lb://recipe-service
+        filters:
+          - StripPrefix=0
+      - id: user-service
+        predicates:
+          - Path=/api/users/**,/api/roles/**
+        uri: lb://user-service
+        filters:
+          - StripPrefix=0
+      - id: auth-service
+        predicates:
+          - Path=/login/**
+        uri: lb://user-service
+        filters:
+          - StripPrefix=0
+          - RemoveRequestHeader=Cookie
+          - RemoveRequestHeader=Set-Cookie,Authorization
+          - RemoveRequestHeader=Authorization
+
+security:
+  user:
+    name: "user"
+    password: "password"
+server:
+  port: 8088
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL}
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

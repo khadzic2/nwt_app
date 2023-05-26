@@ -1,0 +1,62 @@
+spring:
+application:
+  name: api-gateway
+cloud:
+  gateway:
+    routes:
+      - id: item_service
+        predicates:
+          - Path=/api/items/**,/api/itempictures/**,/api/itemcart/**
+       
+        uri: http://localhost:8086/
+     #   filters:
+      #    - StripPrefix=0
+      - id: itemCart_service
+        predicates:
+          - Path=/api/itemCarts/**
+        uri: http://localhost:8081/
+      #  filters:
+        #- StripPrefix=0
+      - id: orders_service
+        predicates:
+          - Path=/api/orders/**,/api/pictures/**,/api/carts/**
+          - uri: http://localhost:8081/
+          #  filters:
+        #- StripPrefix=0
+      - id: user-service
+        predicates:
+          - Path=/api/users/**,/api/roles/**
+          - uri: http://localhost:8081/
+          #filters:
+        #- StripPrefix=0
+      - id: auth-service
+        predicates:
+          - Path=/login/**
+          - uri: http://localhost:8081/
+        filters:
+          - StripPrefix=0
+          - RemoveRequestHeader=Cookie
+          - RemoveRequestHeader=Set-Cookie,Authorization
+          - RemoveRequestHeader=Authorization
+
+security:
+  user:
+    name: "root"
+    password: "root"
+server:
+  port: 8088
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL}
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
