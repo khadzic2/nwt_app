@@ -12,32 +12,29 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToMany
-    @JoinTable(name = "item_cart", joinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
-    private Collection<Item> items;
+    @OneToMany(mappedBy = "cart")
+    private Collection<ItemCart> itemCarts;
 
-    @OneToOne
+    public Collection<ItemCart> getItemCarts() {
+        return itemCarts;
+    }
+
+    public void setItemCarts(Collection<ItemCart> itemCarts) {
+        this.itemCarts = itemCarts;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     @NotNull(message="Can't be null!")
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    private Integer userId;
 
     public Integer getId() {
         return id;
-    }
-
-    public Collection<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(Collection<Item> items) {
-        this.items = items;
     }
 }
