@@ -39,10 +39,10 @@ public class OrdersService {
 
     public Orders updateOrder(Orders newOrder, Integer id){
         Orders oldOrder = getOrderById(id);
-        oldOrder.setItemOrderId(newOrder.getItemOrderId());
+        oldOrder.setItemId(newOrder.getItemId());
         oldOrder.setState(newOrder.getState());
         oldOrder.setDate(newOrder.getDate());
-        oldOrder.setUser(newOrder.getUser());
+        oldOrder.setUserId(newOrder.getUserId());
         orderRepository.save(oldOrder);
         return oldOrder;
     }

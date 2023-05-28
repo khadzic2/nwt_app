@@ -1,6 +1,7 @@
 package ba.unsa.etf.nwt.order_service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.FutureOrPresent;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Date {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +21,7 @@ public class Date {
     private LocalDate delayDate;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "date")
+    @OneToOne(mappedBy = "date",fetch = FetchType.LAZY)
     private Orders orders;
 
     public Date() {

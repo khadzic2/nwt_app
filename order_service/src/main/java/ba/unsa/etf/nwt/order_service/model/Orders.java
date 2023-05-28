@@ -4,32 +4,33 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotNull(message = "Ordered item can't be null")
-    private Integer itemOrderId;
     @NotNull(message = "Date of order can't be null")
     @JsonIgnoreProperties("order")
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "date_id")
     private Date date;
     @NotNull(message = "State of order can't be null")
     @JsonIgnoreProperties("order")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "state_id")
     private State state;
     @NotNull(message = "User of order can't be null")
     private Integer userId;
-
+    @NotNull(message = "Ordered item can't be null")
+    private Integer itemId;
     public Orders(){}
 
-    public Orders(Integer userId, Integer itemOrderId, Date date, State state) {
+    public Orders(Integer userId, Integer itemId, Date date, State state) {
         this.userId = userId;
-        this.itemOrderId = itemOrderId;
+        this.itemId = itemId;
         this.date = date;
         this.state = state;
     }
@@ -38,12 +39,8 @@ public class Orders {
         return id;
     }
 
-    public Integer getUser() {
-        return userId;
-    }
-
-    public Integer getItemOrderId() {
-        return itemOrderId;
+    public Integer getItemId() {
+        return itemId;
     }
 
     public Date getDate() {
@@ -53,12 +50,12 @@ public class Orders {
         return state;
     }
 
-    public void setUser(Integer userId) {
-        this.userId = userId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setItemOrderId(Integer itemId) {
-        this.itemOrderId = itemId;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public void setDate(Date date) {
@@ -67,5 +64,9 @@ public class Orders {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

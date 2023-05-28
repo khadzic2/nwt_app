@@ -41,8 +41,11 @@ public class OrderController {
         ordersService.deleteOrder(id);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<List<Orders>> getOrdersFromUser(Integer id){
-        return new ResponseEntity<>(ordersService.getOrdersFromUser(id),HttpStatus.OK);
+    @GetMapping("/orders/user/{id}")
+    public ResponseEntity<List<Orders>> getOrdersFromUser(@PathVariable Integer id){
+        Orders orders = ordersService.getOrdersFromUser(id).get(0);
+        System.out.println(ordersService.getOrdersFromUser(id));
+        //return null;
+        return ResponseEntity.ok(ordersService.getOrdersFromUser(id));
     }
 }
