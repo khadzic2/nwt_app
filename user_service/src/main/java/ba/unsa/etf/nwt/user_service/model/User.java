@@ -21,7 +21,7 @@ public class User {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Role role = new Role();
+    private Role role;
 
     public Role getRole() {
         return role;
@@ -31,9 +31,10 @@ public class User {
         this.role = role;
     }
 
-    public User(String firstName, String lastName) {
+    public User(String firstName, String lastName, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
     }
     public User() {
     }

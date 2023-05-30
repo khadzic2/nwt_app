@@ -22,12 +22,26 @@ public class Role {
     @NotBlank(message = "Name can't be blank")
     private String name;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private OffsetDateTime dateCreated;
+//    @CreatedDate
+//    @Column(nullable = false, updatable = false)
+//    private OffsetDateTime dateCreated;
+//
+//    @LastModifiedDate
+//    @Column(nullable = false)
+//    private OffsetDateTime lastUpdated;
 
-    @LastModifiedDate
-    @Column(nullable = false)
-    private OffsetDateTime lastUpdated;
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 }
