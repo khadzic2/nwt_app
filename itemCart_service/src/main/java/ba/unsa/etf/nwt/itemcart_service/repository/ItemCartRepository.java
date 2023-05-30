@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface ItemCartRepository extends JpaRepository<ItemCart,Integer> {
 
-    @Query(value = "DELETE FROM ItemCart it where it.orderId =:orderId", nativeQuery = true)
+    @Query(value = "DELETE FROM item_cart it where it.orderId =:orderId", nativeQuery = true)
     void deleteByOrderId(@Param("orderId") Integer orderId);
 
-    @Query(value = "SELECT * from ItemCart where order_id=:orderId", nativeQuery = true)
+    @Query(value = "SELECT * from item_cart it where it.order_id=:orderId", nativeQuery = true)
     List<ItemCart> getAllByOrderId(@Param("orderId") Integer orderId);
 }

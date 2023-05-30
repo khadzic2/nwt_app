@@ -21,4 +21,7 @@ public class SelectedSpecificationsService {
         selectedSpecificationsRepository.deleteAll();
     }
 
+    public SelectedSpecifications add(SelectedSpecifications selectedSpecifications) {
+        return selectedSpecificationsRepository.save(selectedSpecifications);
+    }
 }

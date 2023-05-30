@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.itemcart_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,16 +19,22 @@ public class ItemCart {
         this.selectedSpecifications = selectedSpecifications;
     }
 
-    @NotNull(message="Can't be null!")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull(message="Can't be null!")
+    @NotNull(message="SelectedSpecifications can't be null!")
     @OneToOne
+    @JsonIgnoreProperties("itemCart")
+    @JoinColumn(name = "selected_specifications_id")
     private SelectedSpecifications selectedSpecifications;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    public Integer getId() {
+        return id;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("itemCarts")
     private Cart cart;
 
     public SelectedSpecifications getSelectedSpecifications() {
@@ -38,7 +45,7 @@ public class ItemCart {
         this.selectedSpecifications = selectedSpecifications;
     }
 
-    @NotNull(message="Can't be null!")
+    @NotNull(message="itemId Can't be null!")
     private Integer itemId;
 
     private Integer orderId;

@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.itemcart_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,10 +10,10 @@ public class SelectedSpecifications {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotNull(message="Can't be null!")
     @OneToOne(mappedBy = "selectedSpecifications")
+    @JsonIgnoreProperties("selectedSpecifications")
     private ItemCart itemCart;
-    @NotNull(message="Can't be null!")
+    @NotNull(message="color Can't be null!")
     private String color;
 
     public ItemCart getItemCart() {
@@ -63,16 +64,16 @@ public class SelectedSpecifications {
         this.material = material;
     }
 
-    @NotNull(message="Can't be null!")
+    @NotNull(message="height Can't be null!")
     private String height;
 
-    @NotNull(message="Can't be null!")
+    @NotNull(message="width Can't be null!")
     private String width;
 
-    @NotNull(message="Can't be null!")
+    @NotNull(message="depth Can't be null!")
     private String depth;
 
-    @NotNull(message="Can't be null!")
+    @NotNull(message="material Can't be null!")
     private String material;
 
     public Integer getId() {
@@ -89,4 +90,5 @@ public class SelectedSpecifications {
         this.depth = depth;
         this.material = material;
     }
+
 }
