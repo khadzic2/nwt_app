@@ -1,45 +1,49 @@
 package ba.unsa.etf.nwt.order_service.controller;
 
-import ba.unsa.etf.nwt.order_service.model.Date;
+import ba.unsa.etf.nwt.order_service.DTO.DateDTO;
 import ba.unsa.etf.nwt.order_service.service.DateService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/date", produces = MediaType.APPLICATION_JSON_VALUE)
 class DateController{
 
     private final DateService dateService;
 
-    DateController(DateService dateService) {
+    public DateController(DateService dateService) {
         this.dateService = dateService;
     }
 
     @GetMapping("/date")
-    ResponseEntity<List<Date>> all() {
+    public ResponseEntity<List<DateDTO>> all() {
         return new ResponseEntity<>(dateService.getAllDates(), HttpStatus.OK);
     }
 
-    @PostMapping("/date")
-    ResponseEntity<Date> newDate(@RequestBody @Valid Date newDate) {
-        return new ResponseEntity<>(dateService.addDate(newDate),HttpStatus.CREATED);
-    }
-
     @GetMapping("/date/{id}")
-    ResponseEntity<Date> one(@PathVariable Integer id) {
+    public ResponseEntity<DateDTO> one(@PathVariable Integer id) {
         return new ResponseEntity<>(dateService.getDateById(id),HttpStatus.OK);
     }
 
+    @PostMapping("/date")
+    public ResponseEntity<Integer> newDate(@RequestBody @Valid DateDTO newDate) {
+        return new ResponseEntity<>(dateService.addDate(newDate),HttpStatus.CREATED);
+    }
+
     @PutMapping("/date/{id}")
-    ResponseEntity<Date> replaceDate(@RequestBody @Valid Date newDate, @PathVariable Integer id) {
-        return new ResponseEntity<>(dateService.updateDate(newDate,id),HttpStatus.OK);
+    public ResponseEntity<String> replaceDate(@RequestBody @Valid DateDTO newDate, @PathVariable Integer id) {
+        dateService.updateDate(newDate,id);
+        return new ResponseEntity<>("Successfully updated!",HttpStatus.OK);
     }
 
     @DeleteMapping("/date/{id}")
-    void deleteDate(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteDate(@PathVariable Integer id) {
         dateService.deleteDate(id);
+        return new ResponseEntity<>("Successfully deleted!",HttpStatus.OK);
     }
 }
