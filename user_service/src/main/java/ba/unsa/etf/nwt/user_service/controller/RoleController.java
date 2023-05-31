@@ -22,7 +22,7 @@ public class RoleController {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
     @PostMapping("/role")
-    ResponseEntity<Role> newUser(@Valid @RequestBody Role role) {
+    ResponseEntity<Role> newRole(@Valid @RequestBody Role role) {
         return new ResponseEntity<>(roleService.addRole(role),HttpStatus.CREATED);
     }
     @GetMapping("/role/{id}")
