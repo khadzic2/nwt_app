@@ -15,7 +15,6 @@ public class Item {
     //AVAILABLE - artikal je na stanju
     //NOT_AVAILABLE - artikal trenutno nije na stanju i nije dostupan
 
-    @NotNull(message="Can't be null!")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -40,12 +39,14 @@ public class Item {
     @JoinColumn(name = "specifications_id")
     private Specifications specifications;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("items")
+    @JoinColumn(name = "stock_id")
     private Stock stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("items")
+    @JoinColumn(name = "itemcategory_id")
     private ItemCategory itemCategory;
 
 
@@ -53,7 +54,6 @@ public class Item {
         compared=false;
     }
     public Item(String name, String description, Double price, StatusType status, Integer manufacturingdays, boolean compared, Image image) {
-        this.id = id;
         this.name = name;
         this.description = description;
         this.price=price;
@@ -133,4 +133,27 @@ public class Item {
         this.image = image;
     }
 
+    public Specifications getSpecifications() {
+        return specifications;
+    }
+
+    public void setSpecifications(Specifications specifications) {
+        this.specifications = specifications;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
+    public ItemCategory getItemCategory() {
+        return itemCategory;
+    }
+
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+    }
 }

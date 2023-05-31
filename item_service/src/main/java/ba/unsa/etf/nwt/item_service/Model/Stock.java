@@ -13,7 +13,6 @@ import ba.unsa.etf.nwt.item_service.Model.Item;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Stock {
 
-    @NotNull(message="Can't be null!")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -25,7 +24,7 @@ public class Stock {
 
     public Stock() {
     }
-    public Stock(Item itemId, Integer amount) {
+    public Stock(Integer amount) {
         this.amount=amount;
     }
 

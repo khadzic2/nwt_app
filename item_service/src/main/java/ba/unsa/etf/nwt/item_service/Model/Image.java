@@ -21,6 +21,16 @@ public class Image {
 
     @Column(name = "imagedata",length = 65555)
     private byte[] imageData;
+
+    public Image(String name, String type, byte[] imageData) {
+        this.name = name;
+        this.type = type;
+        this.imageData = imageData;
+    }
+
+    public Image() {
+    }
+
     public Long getId() {
         return id;
     }

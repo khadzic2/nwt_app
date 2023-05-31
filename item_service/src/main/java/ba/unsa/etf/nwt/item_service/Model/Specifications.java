@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Specifications {
-    @NotNull(message="Can't be null!")
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
@@ -35,6 +35,14 @@ public class Specifications {
     private Item item;
 
     public Specifications(){
+    }
+
+    public Specifications(String colors, String height, String width, String depth, String material) {
+        this.colors = colors;
+        this.height = height;
+        this.width = width;
+        this.depth = depth;
+        this.material = material;
     }
 
     public Integer getId() {
