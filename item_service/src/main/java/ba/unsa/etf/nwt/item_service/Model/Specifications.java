@@ -1,24 +1,37 @@
 package ba.unsa.etf.nwt.item_service.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.NotNull;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Specifications {
     @NotNull(message="Can't be null!")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    private String color;
-    private Double weight;
-    private String dimensions;
+    @NotNull(message="Colors can't be null!")
+    private String colors;
+
+    @NotNull(message="Height can't be null!")
+    private String height;
+
+    @NotNull(message="width Can't be null!")
+    private String width;
+
+    @NotNull(message="depth Can't be null!")
+    private String depth;
+
+    @NotNull(message="material Can't be null!")
     private String material;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id")
+
+    @OneToOne(mappedBy = "specifications")
+    @JsonIgnoreProperties("specifications")
     private Item item;
 
     public Specifications(){
@@ -29,29 +42,15 @@ public class Specifications {
     }
     public Item getItem(){ return item;}
 
-    public String getColor() {
-        return color;
+
+    public String getColors() {
+        return colors;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColors(String colors) {
+        this.colors = colors;
     }
 
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
-
-    public String getDimensions() {
-        return dimensions;
-    }
-
-    public void setDimensions(String dimensions) {
-        this.dimensions = dimensions;
-    }
 
     public String getMaterial() {
         return material;
@@ -59,5 +58,34 @@ public class Specifications {
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public String getDepth() {
+        return depth;
+    }
+
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    public void setDepth(String depth) {
+        this.depth = depth;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

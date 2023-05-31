@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.item_service.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -28,22 +29,38 @@ public class Item {
     private StatusType status;
     private Integer manufacturingdays;
 
-    @OneToMany(mappedBy = "item")
-    private List<Specifications> specifications;
+    private boolean compared;
 
-    @OneToMany(mappedBy = "item")
-    private List<ItemOrders> itemOrders;
+    @OneToOne (fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("item")
+    @JoinColumn(name = "image_id")
+    private Image image;
+    @OneToOne
+    @JsonIgnoreProperties("item")
+    @JoinColumn(name = "specifications_id")
+    private Specifications specifications;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("items")
+    private Stock stock;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("items")
+    private ItemCategory itemCategory;
 
 
     public Item() {
+        compared=false;
     }
-    public Item(String name, String description, Double price, StatusType status, Integer manufacturingdays) {
+    public Item(String name, String description, Double price, StatusType status, Integer manufacturingdays, boolean compared, Image image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price=price;
         this.status = status;
         this.manufacturingdays=manufacturingdays;
+        this.compared=compared;
+        this.image=image;
     }
 
     public StatusType getStatus() {
@@ -84,5 +101,36 @@ public class Item {
         this.manufacturingdays = manufacturingdays;
     }
 
+    public boolean isCompared() {
+        return compared;
+    }
+
+    public void setCompared(boolean compared) {
+        this.compared = compared;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public ItemCategory getCategory() {
+        return itemCategory;
+    }
+
+    public void setCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
 }

@@ -1,10 +1,12 @@
 package ba.unsa.etf.nwt.item_service.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "product_image")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Image {
 
     @Id
@@ -13,8 +15,11 @@ public class Image {
 
     private String name;
     private String type;
-    @Lob
-    @Column(name = "imagedata")
+    @OneToOne(mappedBy = "image", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("image")
+    private Item item;
+
+    @Column(name = "imagedata",length = 65555)
     private byte[] imageData;
     public Long getId() {
         return id;
@@ -39,6 +44,13 @@ public class Image {
     }
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+    public void setItem(Item item) {
+        this.item = item;
     }
 
 }
