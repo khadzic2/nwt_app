@@ -1,8 +1,9 @@
-package ba.unsa.etf.nwt.item_service.Service;
+package ba.unsa.etf.nwt.itemcart_service.service;
 
-import ba.unsa.etf.nwt.item_service.Exceptions.NotFoundException;
-import ba.unsa.etf.nwt.item_service.Model.Item;
-import ba.unsa.etf.nwt.item_service.Repository.ItemRepository;
+
+import ba.unsa.etf.nwt.itemcart_service.exception.NotFoundException;
+import ba.unsa.etf.nwt.itemcart_service.model.Item;
+import ba.unsa.etf.nwt.itemcart_service.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class ItemService {
     }
 
     public Item getItemById(Integer id){
-        return itemRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+        return itemRepository.findById(id).orElseThrow(()-> new NotFoundException(id, "item"));
     }
 
     public Item addItem(Item items){
@@ -39,17 +40,10 @@ public class ItemService {
 
     public Item updateItem(Item newItem, Integer id){
         Item oldItem = getItemById(id);
-
         oldItem.setName(newItem.getName());
         oldItem.setDescription(newItem.getDescription());
-        oldItem.setStatus(newItem.getStatus());
-        oldItem.setManufacturingdays(newItem.getManufacturingdays());
 
         itemRepository.save(oldItem);
         return oldItem;
-    }
-
-    public List<Item> getItemsFromCart(Integer cartId){
-        return itemRepository.getItemsFromCart(cartId);
     }
 }
