@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
