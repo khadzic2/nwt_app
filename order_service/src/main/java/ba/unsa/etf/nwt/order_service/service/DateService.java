@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.order_service.service;
 
+import ba.unsa.etf.nwt.order_service.DTO.DateDTO;
 import ba.unsa.etf.nwt.order_service.exception.NotAllowedRequest;
 import ba.unsa.etf.nwt.order_service.exception.NotFoundException;
 import ba.unsa.etf.nwt.order_service.model.Date;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DateService {
@@ -18,17 +20,19 @@ public class DateService {
         this.dateRepository = dateRepository;
     }
 
-    public List<Date> getAllDates(){
-        return dateRepository.findAll();
+    public List<DateDTO> getAllDates(){
+        return dateRepository.findAll().stream().map(date -> mapToDTO(date, new DateDTO())).collect(Collectors.toList());
     }
 
-    public Date getDateById(Integer id){
-        return dateRepository.findById(id).orElseThrow(()-> new NotFoundException(id,"date"));
+    public DateDTO getDateById(Integer id){
+        return dateRepository.findById(id).map(date-> mapToDTO(date,new DateDTO())).orElseThrow(()-> new NotFoundException(id,"date"));
     }
 
-    public Date addDate(Date date){
-        if (date.getDeliveryDate() != null && date.getDeliveryDate().isAfter(date.getDelayDate())) throw new NotAllowedRequest("Delay date must be after delivery date");
-        return dateRepository.save(date);
+    public Integer addDate(DateDTO dateDTO){
+        Date date = new Date();
+        mapToEntity(dateDTO,date);
+        if (dateDTO.getDeliveryDate() != null && dateDTO.getDeliveryDate().isAfter(dateDTO.getDelayDate())) throw new NotAllowedRequest("Delay date must be after delivery date");
+        return dateRepository.save(date).getId();
     }
 
     public void deleteDate(Integer id){
@@ -39,16 +43,26 @@ public class DateService {
         dateRepository.deleteAll();
     }
 
-    public Date updateDate(Date newDate, Integer id){
-        Date oldDate = getDateById(id);
+    public void updateDate(DateDTO newDate, Integer id){
+        Date oldDate = dateRepository.findById(id).orElseThrow(()-> new NotFoundException(id,"date"));
 
         if(newDate.getDelayDate() != null && oldDate.getDelayDate() != null && newDate.getDelayDate().isBefore(oldDate.getDelayDate())){
             throw new NotAllowedRequest("New delay date must be after old delay date");
         }
 
-        oldDate.setDeliveryDate(newDate.getDeliveryDate());
-        oldDate.setDelayDate(newDate.getDelayDate());
+        mapToEntity(newDate,oldDate);
         dateRepository.save(oldDate);
-        return oldDate;
+    }
+
+    private DateDTO mapToDTO(final Date date, final DateDTO dateDTO) {
+       dateDTO.setId(date.getId());
+       dateDTO.setDelayDate(date.getDelayDate());
+       dateDTO.setDeliveryDate(date.getDeliveryDate());
+       return dateDTO;
+    }
+
+    private void mapToEntity(final DateDTO dateDTO, final Date date) {
+        date.setDelayDate(dateDTO.getDelayDate());
+        date.setDeliveryDate(dateDTO.getDeliveryDate());
     }
 }

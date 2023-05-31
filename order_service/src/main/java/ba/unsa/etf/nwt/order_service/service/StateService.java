@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.order_service.service;
 
+import ba.unsa.etf.nwt.order_service.DTO.StateDTO;
 import ba.unsa.etf.nwt.order_service.exception.NotFoundException;
 import ba.unsa.etf.nwt.order_service.model.State;
 import ba.unsa.etf.nwt.order_service.repository.StateRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StateService {
@@ -17,16 +19,18 @@ public class StateService {
         this.stateRepository = stateRepository;
     }
 
-    public List<State> getAllStates(){
-        return stateRepository.findAll();
+    public List<StateDTO> getAllStates(){
+        return stateRepository.findAll().stream().map(state -> mapToDTO(state, new StateDTO())).collect(Collectors.toList());
     }
 
-    public State getStateById(Integer id){
-        return stateRepository.findById(id).orElseThrow(()-> new NotFoundException(id,"state"));
+    public StateDTO getStateById(Integer id){
+        return stateRepository.findById(id).map(state -> mapToDTO(state, new StateDTO())).orElseThrow(()-> new NotFoundException(id,"state"));
     }
 
-    public State addState(State state){
-        return stateRepository.save(state);
+    public Integer addState(StateDTO stateDTO){
+        State state = new State();
+        mapToEntity(stateDTO,state);
+        return stateRepository.save(state).getId();
     }
 
     public void deleteState(Integer id){
@@ -35,5 +39,15 @@ public class StateService {
 
     public void deleteAll(){
         stateRepository.deleteAll();
+    }
+
+    private StateDTO mapToDTO(final State state, final StateDTO stateDTO) {
+        stateDTO.setId(state.getId());
+        stateDTO.setState(state.getState());
+        return stateDTO;
+    }
+
+    private void mapToEntity(final StateDTO stateDTO, final State state) {
+        state.setState(stateDTO.getState());
     }
 }

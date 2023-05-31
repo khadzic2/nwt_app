@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.user_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,8 +21,9 @@ public class User {
     @Size(min = 3, message = "Length of user's last name must be at least 3")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Role role = new Role();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties("users")
+    private Role role;
 
     public Role getRole() {
         return role;
@@ -31,9 +33,10 @@ public class User {
         this.role = role;
     }
 
-    public User(String firstName, String lastName) {
+    public User(String firstName, String lastName, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.role = role;
     }
     public User() {
     }
