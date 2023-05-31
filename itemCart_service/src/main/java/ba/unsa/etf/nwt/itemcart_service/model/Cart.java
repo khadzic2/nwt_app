@@ -1,43 +1,51 @@
 package ba.unsa.etf.nwt.itemcart_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Collection;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToMany
-    @JoinTable(name = "item_cart", joinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
-    private Collection<Item> items;
+    @OneToMany(mappedBy = "cart")
+    @JsonIgnoreProperties("cart")
+    private Collection<ItemCart> itemCarts;
 
-    @OneToOne
-    @NotNull(message="Can't be null!")
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public User getUser() {
-        return user;
+    public Collection<ItemCart> getItemCarts() {
+        return itemCarts;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setItemCarts(Collection<ItemCart> itemCarts) {
+        this.itemCarts = itemCarts;
     }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @NotNull(message="userId Can't be null!")
+    private Integer userId;
 
     public Integer getId() {
         return id;
     }
 
-    public Collection<Item> getItems() {
-        return items;
+    public Cart() {
     }
 
-    public void setItems(Collection<Item> items) {
-        this.items = items;
+    public Cart(Collection<ItemCart> itemCarts, Integer userId) {
+        this.itemCarts = itemCarts;
+        this.userId = userId;
     }
 }

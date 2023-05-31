@@ -39,11 +39,9 @@ public class CartService {
 
     public Cart updateCart(Cart newCart, Integer id){
         Cart oldCart = getCartById(id);
-        oldCart.setItems(newCart.getItems());
-        oldCart.setUser(newCart.getUser());
+        oldCart.setItemCarts(newCart.getItemCarts());
+        oldCart.setUserId(newCart.getUserId());
         cartRepository.save(oldCart);
         return oldCart;
     }
-
-
 }

@@ -75,25 +75,13 @@ public class ItemController {
     }
 
 
-
-
-    //
-
-    //
-
-    //public ResponseEntity<Item> getItemById(@PathVariable("itemId") String itemId) {
-      //  // Retrieve item information from the database
-       // Item item = ...;
-
-        // Get cart information from the Cart Service
-        //String cartServiceUrl = "http://cart-service/carts/" + itemId;
-        //Cart cart = restTemplate.getForObject(cartServiceUrl, Cart.class);
-
-        // Combine item and cart information
-       // item.setCart(cart);
-
-      //  return ResponseEntity.ok(item);
-   // }
+    @GetMapping("/items/cart/{cart_id}")
+    public ResponseEntity<List<Item>> getItemsFromCart(@PathVariable Integer id){
+        Item item = itemService.getItemsFromCart(id).get(0);
+        System.out.println(itemService.getItemsFromCart(id));
+        //return null;
+        return ResponseEntity.ok(itemService.getItemsFromCart(id));
+    }
 
 
 }

@@ -12,15 +12,13 @@ public class Specifications {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    private String specifications;
+    private String color;
+    private Double weight;
+    private String dimensions;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
-
-    @ManyToOne
-    @JoinColumn(name = "selectedSpecifications_id")
-    private SelectedSpecifications selectedSpecifications;
 
     public Specifications(){
     }
@@ -29,15 +27,28 @@ public class Specifications {
         return id;
     }
     public Item getItem(){ return item;}
-    public SelectedSpecifications getSelectedSpecifications() {
-        return selectedSpecifications;
+
+    public String getColor() {
+        return color;
     }
 
-    public String getSpecifications() {
-        return specifications;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public void setSpecifications(String specifications) {
-        this.specifications = specifications;
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(String dimensions) {
+        this.dimensions = dimensions;
     }
 }

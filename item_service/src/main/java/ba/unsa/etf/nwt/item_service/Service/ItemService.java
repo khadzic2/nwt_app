@@ -48,4 +48,8 @@ public class ItemService {
         itemRepository.save(oldItem);
         return oldItem;
     }
+
+    public List<Item> getItemsFromCart(Integer cartId){
+        return itemRepository.getItemsFromCart(cartId);
+    }
 }

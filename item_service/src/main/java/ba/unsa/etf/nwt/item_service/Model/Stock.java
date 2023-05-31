@@ -18,6 +18,7 @@ public class Stock {
 
     @OneToMany(mappedBy = "id")
     private List<Item> items;
+    private String product;
     private Integer amount;
 
     public Stock() {
@@ -32,6 +33,13 @@ public class Stock {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public Integer getAmount() {
