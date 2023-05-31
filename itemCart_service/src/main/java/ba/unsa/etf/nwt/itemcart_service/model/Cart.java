@@ -34,7 +34,7 @@ public class Cart {
         this.userId = userId;
     }
 
-    @NotNull(message="userId Can't be null!")
+    @NotNull(message="User id can't be null!")
     private Integer userId;
 
     public Integer getId() {
