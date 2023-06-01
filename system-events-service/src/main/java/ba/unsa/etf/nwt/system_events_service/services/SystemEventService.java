@@ -1,17 +1,17 @@
-package com.example.systemeventsservice.services;
+package ba.unsa.etf.nwt.system_events_service.services;
 
-import com.example.systemeventsservice.grpc.SystemEventServiceGrpc;
-import com.example.systemeventsservice.models.SystemEvent;
-import com.example.systemeventsservice.repositories.SystemEventRepository;
-import com.example.systemeventsservice.grpc.SystemEventRequest;
-import com.example.systemeventsservice.grpc.SystemEventResponse;
+import ba.unsa.etf.nwt.system_events_service.grpc.SystemEventRequest;
+import ba.unsa.etf.nwt.system_events_service.grpc.SystemEventResponse;
+import ba.unsa.etf.nwt.system_events_service.grpc.SystemEventServiceGrpc;
+import ba.unsa.etf.nwt.system_events_service.models.SystemEvent;
+import ba.unsa.etf.nwt.system_events_service.repositories.SystemEventRepository;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 @GrpcService
 @Service
-public class SystemEventService extends SystemEventServiceGrpc.SystemEventServiceImplBase{
+public class SystemEventService extends SystemEventServiceGrpc.SystemEventServiceImplBase {
 
 
 

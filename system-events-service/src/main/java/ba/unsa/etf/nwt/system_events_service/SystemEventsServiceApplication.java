@@ -1,24 +1,15 @@
-package com.example.systemeventsservice;
+package ba.unsa.etf.nwt.system_events_service;
 
-import com.example.systemeventsservice.models.SystemEvent;
-import com.example.systemeventsservice.repositories.SystemEventRepository;
-import com.example.systemeventsservice.services.SystemEventService;
-import io.grpc.BindableService;
+import ba.unsa.etf.nwt.system_events_service.services.SystemEventService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.web.jsf.FacesContextUtils;
-
-import java.io.IOException;
-import java.util.Optional;
 
 @OpenAPIDefinition
 @SpringBootApplication

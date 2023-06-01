@@ -1,4 +1,4 @@
-package com.example.systemeventsservice.models;
+package ba.unsa.etf.nwt.system_events_service.models;
 
 import jakarta.persistence.*;
 

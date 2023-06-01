@@ -1,7 +1,7 @@
-package com.example.systemeventsservice.controllers;
+package ba.unsa.etf.nwt.system_events_service.controllers;
 
-import com.example.systemeventsservice.models.SystemEvent;
-import com.example.systemeventsservice.repositories.SystemEventRepository;
+import ba.unsa.etf.nwt.system_events_service.models.SystemEvent;
+import ba.unsa.etf.nwt.system_events_service.repositories.SystemEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
