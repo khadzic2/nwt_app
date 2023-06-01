@@ -1,6 +1,7 @@
 package ba.unsa.etf.nwt.order_service.controller;
 
 import ba.unsa.etf.nwt.order_service.DTO.OrdersDTO;
+import ba.unsa.etf.nwt.order_service.response.GetItemsResponse;
 import ba.unsa.etf.nwt.order_service.service.DateService;
 import ba.unsa.etf.nwt.order_service.service.OrdersService;
 import ba.unsa.etf.nwt.order_service.service.StateService;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @RestController
 @RequestMapping(value = "/api/order", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,5 +56,10 @@ public class OrderController {
     @GetMapping("/orders/user/{id}")
     public ResponseEntity<List<OrdersDTO>> getOrdersFromUser(@PathVariable Integer id){
         return ResponseEntity.ok(ordersService.getOrdersFromUser(id));
+    }
+
+    @GetMapping("/{id}/items")
+    public ResponseEntity<List<GetItemsResponse>> getItemsFromCart(@PathVariable Integer id){
+        return ResponseEntity.ok(ordersService.getItemsFromCart(id));
     }
 }
