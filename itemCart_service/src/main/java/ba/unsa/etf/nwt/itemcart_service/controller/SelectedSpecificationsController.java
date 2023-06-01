@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@RequestMapping(path = "/api")
 @RestController
 public class SelectedSpecificationsController {
     private final SelectedSpecificationsService selectedSpecificationsService;
