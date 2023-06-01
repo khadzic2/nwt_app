@@ -47,5 +47,9 @@ public class ItemCartController {
     public ResponseEntity<List<GetItemsResponse>> itemsByOrderId(@PathVariable Integer order_id) {
         return new ResponseEntity<>(itemCartService.getAllByOrderId(order_id),HttpStatus.OK);
     }
+    @GetMapping("/item_cart/{itemId}/cartExist")
+    public ResponseEntity<Boolean> orderExist(@PathVariable Integer itemId){
+        return new ResponseEntity<>(itemCartService.cartExistWithItem(itemId),HttpStatus.OK);
+    }
 
 }
