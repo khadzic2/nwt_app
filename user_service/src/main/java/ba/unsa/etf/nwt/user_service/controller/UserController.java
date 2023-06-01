@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequestMapping(path = "/api")
 @RestController
-
+@RequestMapping(value = "/api")
 public class UserController {
 
     private final UserService userService;
