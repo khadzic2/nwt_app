@@ -85,8 +85,12 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 			<version>4.0.1</version>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 
 
