@@ -3,16 +3,20 @@ package ba.unsa.etf.nwt.system_events_service.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public class Action {
-    @jakarta.persistence.Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 

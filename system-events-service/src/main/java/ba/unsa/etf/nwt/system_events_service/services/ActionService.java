@@ -15,8 +15,12 @@ import java.time.Instant;
 @GrpcService
 public class ActionService extends ActionsServiceGrpc.ActionsServiceImplBase {
 
-    @Autowired
+
     private ActionRepository actionRepository;
+
+    public ActionService(ActionRepository actionRepository) {
+        this.actionRepository = actionRepository;
+    }
 
     @Override
     public void save(ActionsRequest request, StreamObserver<ActionsResponse> responseObserver){
