@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-
 import ba.unsa.etf.nwt.item_service.Exceptions.RestExceptionHandler;
 
 @RestController
