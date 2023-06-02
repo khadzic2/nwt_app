@@ -20,15 +20,11 @@ public class GRPCService {
     public void save(String actionType, String resourceName, String responseType, String username) {
         try {
             Instant now = Instant.now();
-            System.out.println("1");
             InstanceInfo instanceInfo = eurekaClient.getNextServerFromEureka("system-events-service", false);
-            System.out.println("2");
             ManagedChannel channel = ManagedChannelBuilder.forAddress(instanceInfo.getIPAddr(), 9090)
                     .usePlaintext()
                     .build();
-            System.out.println("3");
             ActionsServiceGrpc.ActionsServiceBlockingStub stub = ActionsServiceGrpc.newBlockingStub(channel);
-            System.out.println("4");
             ActionsRequest actionsRequest=ActionsRequest.newBuilder()
                     .setTimestamp(Timestamp.newBuilder().setSeconds(now.getEpochSecond()).setNanos(now.getNano()).build())
                     .setService("user-service")
@@ -39,7 +35,6 @@ public class GRPCService {
                     .build();
             System.out.println(actionsRequest);
             stub.save(actionsRequest);
-            System.out.println("6");
             channel.shutdown();
         } catch ( Exception e ) {
             System.out.println("Can't connect to system-events-service to store action!");
