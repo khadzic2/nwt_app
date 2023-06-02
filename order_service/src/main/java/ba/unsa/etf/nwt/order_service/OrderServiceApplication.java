@@ -2,6 +2,7 @@ package ba.unsa.etf.nwt.order_service;
 
 import ba.unsa.etf.nwt.order_service.model.*;
 import ba.unsa.etf.nwt.order_service.repository.DateRepository;
+import ba.unsa.etf.nwt.order_service.repository.OrderItemsRepository;
 import ba.unsa.etf.nwt.order_service.repository.OrderRepository;
 import ba.unsa.etf.nwt.order_service.repository.StateRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +20,7 @@ public class OrderServiceApplication {
     }
 
     @Bean
-    CommandLineRunner run(DateRepository dateRepository, OrderRepository orderRepository, StateRepository stateRepository){
+    CommandLineRunner run(DateRepository dateRepository, OrderRepository orderRepository, StateRepository stateRepository, OrderItemsRepository orderItemsRepository){
         return args -> {
             Date date1 = new Date(LocalDate.now().plusDays(5), LocalDate.now().plusDays(10));
             Date date2 = new Date(LocalDate.now().plusDays(5), LocalDate.now().plusDays(5));
@@ -43,17 +44,25 @@ public class OrderServiceApplication {
             stateRepository.save(state3);
             stateRepository.save(state4);
 
-            Orders orders1 = new Orders(1,1, date1, state1);
-            Orders orders2 = new Orders(1,2, date2, state1);
-            Orders orders3 = new Orders(1,3, date3, state2);
-            Orders orders4 = new Orders(1,4, date4, state3);
-            Orders orders5 = new Orders(1,5, date5, state4);
+            Orders orders1 = new Orders(1, date1, state1);
+            Orders orders2 = new Orders(1, date2, state1);
+            Orders orders3 = new Orders(1, date3, state2);
+            Orders orders4 = new Orders(1, date4, state3);
+            Orders orders5 = new Orders(1, date5, state4);
 
             orderRepository.save(orders1);
             orderRepository.save(orders2);
             orderRepository.save(orders3);
             orderRepository.save(orders4);
             orderRepository.save(orders5);
+
+            OrderItems orderItems1 = new OrderItems(1,orders1);
+            OrderItems orderItems2 = new OrderItems(2,orders1);
+            OrderItems orderItems3 = new OrderItems(3,orders1);
+
+            orderItemsRepository.save(orderItems1);
+            orderItemsRepository.save(orderItems2);
+            orderItemsRepository.save(orderItems3);
         };
     }
 }

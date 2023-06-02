@@ -54,4 +54,7 @@ public class ItemCartService {
         }
         return itemsResponses;
     }
+    public boolean cartExistWithItem(Integer itemId){
+        return itemCartRepository.countCartForItem(itemId) != 0;
+    }
 }

@@ -16,16 +16,13 @@ public class OrdersDTO {
     private Integer stateId;
     @NotNull(message = "User of order can't be null")
     private Integer userId;
-    @NotNull(message = "Ordered item can't be null")
-    private Integer itemId;
 
     public OrdersDTO() {
     }
 
-    public OrdersDTO(Integer dateId, Integer stateId, Integer userId, Integer itemId) {
+    public OrdersDTO(Integer dateId, Integer stateId, Integer userId) {
         this.dateId = dateId;
         this.stateId = stateId;
         this.userId = userId;
-        this.itemId = itemId;
     }
 }
