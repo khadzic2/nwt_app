@@ -46,48 +46,19 @@ public class ItemController {
                 .orElseThrow(() -> new NotFoundException(id));
     }
 
-    @GetMapping(path = "/items_in_cart")
-    public @ResponseBody Iterable<Item> getAllItems(){
-        return itemService.getAllItems();
-    }
-
-    @PostMapping("/add")
-    public Item AddToCart(int cartId, Item i){
-        if (i.getStatus().equals(Item.StatusType.NOT_AVAILABLE)) throw new
-                NotAllowedRequest("Item is not available");
-
-        Item item = restTemplate.postForObject("user/cart/"+cartId, i, i.getClass());
-        return item;
-        ///api/cart
-    }
-
-    public void checkStock(String itemId) {
-        String url = "http://stock-service-api.com/stock/{itemId}";
-
-        ResponseEntity<Integer> response =
-                restTemplate.exchange(url, HttpMethod.GET, null, Integer.class, itemId);
-
-        if (response.getStatusCode().is2xxSuccessful()) {
-            int stockQuantity = response.getBody();
-            System.out.println("Item stock quantity: " + stockQuantity);
-        } else {
-            System.out.println("Failed to retrieve item stock quantity.");
-        }
-    }
-
-
-    @GetMapping("/items/cart/{cart_id}")
-    public ResponseEntity<List<Item>> getItemsFromCart(@PathVariable Integer id){
-        Item item = itemService.getItemsFromCart(id).get(0);
-        System.out.println(itemService.getItemsFromCart(id));
-        //return null;
-        return ResponseEntity.ok(itemService.getItemsFromCart(id));
-    }
-
-    @GetMapping("/api/item/{id}/days")
-    ResponseEntity<Item> getDaysByItem(@PathVariable Integer id) {
+    @GetMapping("/item/{id}/days")
+    ResponseEntity<Integer> getDaysByItem(@PathVariable Integer id) {
         return new ResponseEntity<>(itemService.getDaysByItem(id), HttpStatus.OK);
     }
 
+    @GetMapping("/item/cartExist")
+    public ResponseEntity<Boolean> itemInCart(@PathVariable Integer id){
+        return ResponseEntity.ok(itemService.itemInCart(id));
+    }
+
+    @GetMapping("/item/orderExist")
+    public ResponseEntity<Boolean> itemInOrder(@PathVariable Integer id){
+        return ResponseEntity.ok(itemService.itemInOrder(id));
+    }
 
 }
