@@ -49,11 +49,16 @@ public class ItemService {
         return oldItem;
     }
 
-    public List<Item> getItemsFromCart(Integer cartId){
-        return itemRepository.getItemsFromCart(cartId);
+    public Integer getDaysByItem(Integer id) {
+        return itemRepository.getDaysByItem(id);
     }
 
-    public Item getDaysByItem(Integer userId) {
-        return itemRepository.getDaysByItem(userId);
+
+    public boolean itemInCart(Integer id) {
+        return itemRepository.countItems(id) != 0;
+    }
+
+    public boolean itemInOrder(Integer id) {
+        return itemRepository.countItemsOrder(id) != 0;
     }
 }

@@ -15,12 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +53,10 @@ public class OrdersService {
 
     public OrdersDTO getOrderById(Integer id){
         return orderRepository.findById(id).map(orders->mapToDTO(orders,new OrdersDTO())).orElseThrow(()-> new NotFoundException(id,"order"));
+    }
+
+    public Integer getDateIdForOrder(Integer id){
+        return orderRepository.getDateIdForOrder(id);
     }
 
     public Integer addOrder(OrdersDTO ordersDTO){
@@ -122,10 +123,20 @@ public class OrdersService {
         }
         return itemsspecifications;
     }
+    public Integer getDaysForManufacturing(List<Integer> items){
+        int numOfDays = 0;
+        for(Integer itemId: items){
+            ServiceInstance serviceInstance = discoveryClient.getInstances("item-service").get(0);
+            String resourceURL = serviceInstance.getUri() + "/api/item/" + itemId + "/days";
+            ResponseEntity<Integer> response = restTemplate.getForEntity(resourceURL,Integer.class);
+            Integer days = response.getBody();
+            if(days != null && days > numOfDays) numOfDays = days;
+        }
+        return numOfDays;
+    }
     private OrdersDTO mapToDTO(final Orders orders, final OrdersDTO ordersDTO) {
         ordersDTO.setId(orders.getId());
         ordersDTO.setUserId(orders.getUserId());
-        ordersDTO.setItemId(orders.getItemId());
         ordersDTO.setDateId(orders.getDate().getId());
         ordersDTO.setStateId(orders.getState().getId());
         return ordersDTO;
@@ -133,10 +144,11 @@ public class OrdersService {
 
     private void mapToEntity(final OrdersDTO ordersDTO, final Orders orders) {
         orders.setUserId(ordersDTO.getUserId());
-        orders.setItemId(ordersDTO.getItemId());
         State state = stateRepository.findById(ordersDTO.getStateId()).orElseThrow(()-> new NotFoundException(ordersDTO.getStateId(),"state"));
         Date date = dateRepository.findById(ordersDTO.getDateId()).orElseThrow(()-> new NotFoundException(ordersDTO.getDateId(), "date"));
         orders.setDate(date);
         orders.setState(state);
     }
+
+
 }

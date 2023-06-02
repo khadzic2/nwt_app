@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.List;
 
 @Entity
 public class Orders {
@@ -23,13 +24,15 @@ public class Orders {
     private State state;
     @NotNull(message = "User of order can't be null")
     private Integer userId;
-    @NotNull(message = "Ordered item can't be null")
-    private Integer itemId;
+
+    @JsonIgnoreProperties("orders")
+    @OneToMany(mappedBy = "orders",fetch = FetchType.EAGER)
+    private List<OrderItems> items;
+
     public Orders(){}
 
-    public Orders(Integer userId, Integer itemId, Date date, State state) {
+    public Orders(Integer userId, Date date, State state) {
         this.userId = userId;
-        this.itemId = itemId;
         this.date = date;
         this.state = state;
     }
@@ -38,8 +41,8 @@ public class Orders {
         return id;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public List<OrderItems> getItems() {
+        return items;
     }
 
     public Date getDate() {
@@ -53,8 +56,8 @@ public class Orders {
         return userId;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItems(List<OrderItems> items) {
+        this.items = items;
     }
 
     public void setDate(Date date) {

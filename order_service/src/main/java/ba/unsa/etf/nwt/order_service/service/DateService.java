@@ -31,7 +31,7 @@ public class DateService {
     public Integer addDate(DateDTO dateDTO){
         Date date = new Date();
         mapToEntity(dateDTO,date);
-        if (dateDTO.getDeliveryDate() != null && dateDTO.getDeliveryDate().isAfter(dateDTO.getDelayDate())) throw new NotAllowedRequest("Delay date must be after delivery date");
+        if (dateDTO.getDelayDate() != null && dateDTO.getDeliveryDate().isAfter(dateDTO.getDelayDate())) throw new NotAllowedRequest("Delay date must be after delivery date");
         return dateRepository.save(date).getId();
     }
 
