@@ -1,0 +1,5 @@
+ba\unsa\etf\nwt\apigateway\config\SecurityContextRepository.class
+ba\unsa\etf\nwt\apigateway\config\JwtConfig.class
+ba\unsa\etf\nwt\apigateway\ApiGatewayApplication.class
+ba\unsa\etf\nwt\apigateway\config\AuthenticationManager.class
+ba\unsa\etf\nwt\apigateway\config\WebSecurityConfig.class
