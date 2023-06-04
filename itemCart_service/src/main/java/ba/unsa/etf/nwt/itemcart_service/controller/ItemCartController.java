@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/item_carts")
 @Controller
 public class ItemCartController {
     private final ItemCartService itemCartService;
@@ -19,7 +19,7 @@ public class ItemCartController {
         this.itemCartService = itemCartService;
     }
 
-    @GetMapping("/item_carts")
+    @GetMapping()
     public ResponseEntity<List<ItemCart>> all() {
         return new ResponseEntity<>(itemCartService.getAllItemCarts(), HttpStatus.OK);
     }

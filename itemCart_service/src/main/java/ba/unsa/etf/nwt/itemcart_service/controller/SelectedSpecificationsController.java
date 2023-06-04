@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/specifications")
 @RestController
 public class SelectedSpecificationsController {
     private final SelectedSpecificationsService selectedSpecificationsService;
@@ -17,11 +17,11 @@ public class SelectedSpecificationsController {
         this.selectedSpecificationsService = selectedSpecificationsService;
     }
 
-    @PostMapping("/specifications")
+    @PostMapping()
     ResponseEntity<SelectedSpecifications> newSpecifications(@Valid @RequestBody SelectedSpecifications selectedSpecifications) {
         return new ResponseEntity<>(selectedSpecificationsService.add(selectedSpecifications),HttpStatus.CREATED);
     }
-    @GetMapping("/specifications/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<SelectedSpecifications> one(@PathVariable Integer id) {
         return new ResponseEntity<>(selectedSpecificationsService.getSpecificationsById(id),HttpStatus.OK);
     }

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/carts")
 @RestController
 public class CartController {
     private final CartService cartService;
@@ -17,7 +17,7 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping("/carts")
+    @GetMapping()
     ResponseEntity<List<Cart>> all() {
         return new ResponseEntity<>(cartService.getAllCart(), HttpStatus.OK);
     }
