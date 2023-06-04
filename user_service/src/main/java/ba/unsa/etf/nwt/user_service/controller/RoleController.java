@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/roles")
 @RestController
 public class RoleController {
 
@@ -17,7 +17,7 @@ public class RoleController {
     RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
-    @GetMapping("/roles")
+    @GetMapping()
     ResponseEntity<List<Role>> all() {
         return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }

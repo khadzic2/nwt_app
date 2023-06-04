@@ -12,7 +12,7 @@ spring:
             - StripPrefix=0
         - id: orders-service
           predicates:
-            - Path=/api/orders/**
+            - Path=/api/order/**,/api/date/**,/api/orderitems/**,/api/state/**
           uri: lb://orders-service
           filters:
             - StripPrefix=0

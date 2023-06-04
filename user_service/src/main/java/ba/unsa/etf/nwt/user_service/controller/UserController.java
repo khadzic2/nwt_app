@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/users")
 @RestController
 public class UserController {
 
@@ -17,7 +17,7 @@ public class UserController {
     UserController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/users")
+    @GetMapping()
     ResponseEntity<List<User>> all() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
