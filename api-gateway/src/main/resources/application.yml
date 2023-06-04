@@ -43,7 +43,7 @@ spring:
       name: "user"
       password: "password"
 server:
-  port: 8088
+  port: 8089
 
 eureka:
   client:
