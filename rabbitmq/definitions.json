@@ -1,0 +1,56 @@
+{
+  "exchanges": [
+    {
+      "name": "delete-cart-exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "revert-cart-delete-exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "delete-cart-queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "revert-cart-delete-queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "delete-cart-exchange",
+      "vhost": "/",
+      "destination": "delete-cart-queue",
+      "destination_type": "queue",
+      "routing_key": "delete-cart-routing-key",
+      "arguments": {}
+    },
+    {
+      "source": "revert-cart-delete-exchange",
+      "vhost": "/",
+      "destination": "revert-cart-delete-queue",
+      "destination_type": "queue",
+      "routing_key": "revert-cart-delete-routing-key",
+      "arguments": {}
+    }
+  ]
+}
