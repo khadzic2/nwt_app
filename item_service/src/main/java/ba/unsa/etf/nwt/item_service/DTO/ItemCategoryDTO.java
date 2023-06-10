@@ -13,7 +13,7 @@ import java.util.List;
 public class ItemCategoryDTO {
     private Integer id;
     private String category_name;
-    private List<Item> items;
+    //private List<Item> items;
 
 
     public ItemCategoryDTO(String category_name) {

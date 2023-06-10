@@ -12,7 +12,6 @@ public class ImageDTO {
     private Integer id;
     private String name;
     private String type;
-    private Item item;
     private byte[] imageData;
 
 

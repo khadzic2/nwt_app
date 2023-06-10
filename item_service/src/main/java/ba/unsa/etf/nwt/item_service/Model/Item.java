@@ -35,11 +35,6 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("items")
-    @JoinColumn(name = "stock_id")
-    private Stock stock;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("items")
     @JoinColumn(name = "itemcategory_id")
     private ItemCategory itemCategory;
 
@@ -48,13 +43,12 @@ public class Item {
         compared=false;
     }
     public Item(String name, String description, Double price, Integer manufacturingdays,
-                Specifications specifications, Stock stock, boolean compared, Image image, ItemCategory category) {
+                Specifications specifications, boolean compared, Image image, ItemCategory category) {
         this.name = name;
         this.description = description;
         this.price=price;
         this.manufacturingdays=manufacturingdays;
         this.compared=compared;
-        this.stock=stock;
         this.specifications=specifications;
         this.image=image;
         this.itemCategory=category;
@@ -128,14 +122,6 @@ public class Item {
 
     public void setSpecifications(Specifications specifications) {
         this.specifications = specifications;
-    }
-
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
     }
 
     public ItemCategory getItemCategory() {

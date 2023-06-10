@@ -24,7 +24,6 @@ public class ItemDTO {
     private boolean compared;
     private Integer imageId;
     private Integer specificationsId;
-    private Integer stockId;
     private Integer itemCategoryId;
 
 
@@ -32,13 +31,12 @@ public class ItemDTO {
         compared=false;
     }
     public ItemDTO(String name, String description, Double price, Integer manufacturingdays,
-                Integer specificationsId, Integer stockId, boolean compared, Integer imageId, Integer categoryId) {
+                Integer specificationsId, boolean compared, Integer imageId, Integer categoryId) {
         this.name = name;
         this.description = description;
         this.price=price;
         this.manufacturingdays=manufacturingdays;
         this.compared=compared;
-        this.stockId=stockId;
         this.specificationsId=specificationsId;
         this.imageId=imageId;
         this.itemCategoryId=categoryId;
@@ -51,7 +49,6 @@ public class ItemDTO {
         this.price=item.getPrice();
         this.manufacturingdays=item.getManufacturingdays();
         this.compared=item.isCompared();
-        this.stockId=getStockId();
         this.specificationsId=getSpecificationsId();
         this.imageId=getImageId();
         this.itemCategoryId=getItemCategoryId();

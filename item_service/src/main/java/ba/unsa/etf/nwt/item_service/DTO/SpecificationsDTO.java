@@ -26,8 +26,6 @@ public class SpecificationsDTO {
     @NotNull(message="material Can't be null!")
     private String material;
 
-    private Item item;
-
 
     public SpecificationsDTO(){
     }
