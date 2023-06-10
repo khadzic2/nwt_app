@@ -11,10 +11,6 @@ import javax.validation.constraints.Size;
 @Entity
 public class Item {
 
-    public enum StatusType{AVAILABLE, NOT_AVAILABLE}
-    //AVAILABLE - artikal je na stanju
-    //NOT_AVAILABLE - artikal trenutno nije na stanju i nije dostupan
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -23,9 +19,7 @@ public class Item {
     private String name;
     private String description;
     private Double price;
-    @NotNull(message="Status can't be null!")
-    @Enumerated(EnumType.STRING)
-    private StatusType status;
+    @NotNull(message="Manufacturing days can't be null!")
     private Integer manufacturingdays;
 
     private boolean compared;
@@ -53,22 +47,17 @@ public class Item {
     public Item() {
         compared=false;
     }
-    public Item(String name, String description, Double price, StatusType status, Integer manufacturingdays, boolean compared, Image image) {
+    public Item(String name, String description, Double price, Integer manufacturingdays,
+                Specifications specifications, Stock stock, boolean compared, Image image, ItemCategory category) {
         this.name = name;
         this.description = description;
         this.price=price;
-        this.status = status;
         this.manufacturingdays=manufacturingdays;
         this.compared=compared;
+        this.stock=stock;
+        this.specifications=specifications;
         this.image=image;
-    }
-
-    public StatusType getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusType status) {
-        this.status = status;
+        this.itemCategory=category;
     }
 
     public Integer getId() {

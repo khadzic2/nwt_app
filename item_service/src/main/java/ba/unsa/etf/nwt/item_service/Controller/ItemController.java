@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import ba.unsa.etf.nwt.item_service.Exceptions.RestExceptionHandler;
 
 @RestController
-@RequestMapping(value = "/items", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
 
     private final ItemRepository repository;
@@ -51,14 +51,14 @@ public class ItemController {
         return new ResponseEntity<>(itemService.getDaysByItem(id), HttpStatus.OK);
     }
 
-    @GetMapping("/item/cartExist")
+    @GetMapping("/item/cart/cartExist")
     public ResponseEntity<Boolean> itemInCart(@PathVariable Integer id){
         return ResponseEntity.ok(itemService.itemInCart(id));
     }
 
-    @GetMapping("/item/orderExist")
+    @GetMapping("/item/order/orderExist")
     public ResponseEntity<Boolean> itemInOrder(@PathVariable Integer id){
-        return ResponseEntity.ok(itemService.itemInOrder(id));
+       return ResponseEntity.ok(itemService.itemInOrder(id));
     }
 
 }

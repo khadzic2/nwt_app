@@ -7,13 +7,11 @@ import ba.unsa.etf.nwt.item_service.Exceptions.NotFoundException;
 import ba.unsa.etf.nwt.item_service.Model.Item;
 import ba.unsa.etf.nwt.item_service.Model.Specifications;
 import ba.unsa.etf.nwt.item_service.Repository.SpecificationsRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-@RestController
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping(value = "/api/specifications", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SpecificationsController {
 
     private final SpecificationsRepository repository;

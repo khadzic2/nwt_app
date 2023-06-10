@@ -19,29 +19,29 @@ public class ItemDTO {
     private String description;
     private Double price;
 
-    @NotNull(message="Status can't be null!")
-    @Enumerated(EnumType.STRING)
-    private Item.StatusType status;
+    @NotNull(message="Manufacturing days can't be null!")
     private Integer manufacturingdays;
     private boolean compared;
-    private Image image;
-    private Specifications specifications;
-    private Stock stock;
-    private ItemCategory itemCategory;
+    private Integer imageId;
+    private Integer specificationsId;
+    private Integer stockId;
+    private Integer itemCategoryId;
 
 
     public ItemDTO() {
-
+        compared=false;
     }
-
-    public ItemDTO(String name, String description, Double price, Item.StatusType status, Integer manufacturingdays, boolean compared, Image image) {
+    public ItemDTO(String name, String description, Double price, Integer manufacturingdays,
+                Integer specificationsId, Integer stockId, boolean compared, Integer imageId, Integer categoryId) {
         this.name = name;
         this.description = description;
         this.price=price;
-        this.status = status;
         this.manufacturingdays=manufacturingdays;
         this.compared=compared;
-        this.image=image;
+        this.stockId=stockId;
+        this.specificationsId=specificationsId;
+        this.imageId=imageId;
+        this.itemCategoryId=categoryId;
     }
 
     public ItemDTO(Item item) {
@@ -49,9 +49,11 @@ public class ItemDTO {
         this.name = item.getName();
         this.description = item.getDescription();
         this.price=item.getPrice();
-        this.status = item.getStatus();
         this.manufacturingdays=item.getManufacturingdays();
         this.compared=item.isCompared();
-        this.image=item.getImage();
+        this.stockId=getStockId();
+        this.specificationsId=getSpecificationsId();
+        this.imageId=getImageId();
+        this.itemCategoryId=getItemCategoryId();
     }
 }

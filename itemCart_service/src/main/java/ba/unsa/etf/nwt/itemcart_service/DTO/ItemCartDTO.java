@@ -16,8 +16,8 @@ import java.util.List;
 @Setter
 public class ItemCartDTO {
     private Integer id;
-    private SelectedSpecifications selectedSpecifications;;
-    private Cart cart;
+    private Integer selectedSpecificationsId;
+    private Integer cartId;
     private Integer itemId;
 
     private Integer orderId;
@@ -28,8 +28,8 @@ public class ItemCartDTO {
     public ItemCartDTO() {
     }
 
-    public ItemCartDTO(Cart cart, Integer itemId, Integer orderId, Boolean deleted) {
-        this.cart = cart;
+    public ItemCartDTO(Integer cartId, Integer itemId, Integer orderId, Boolean deleted) {
+        this.cartId = cartId;
         this.itemId = itemId;
         this.orderId = orderId;
         this.deleted = deleted;
