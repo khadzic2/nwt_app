@@ -27,20 +27,6 @@ public class UserServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//      User u1 = new User("Admin", "admin", "admin@mail.com", "password", "Admin aplikacije.");
-//      u1.setRole(Role.ADMIN);
-//       u1 = userRepository.save(u1);
-//
-//      UserDTO userDTO= new UserDTO();
-//        userDTO.setId(u1.getId());
-//        userDTO.setName(u1.getName());
-//        userDTO.setUsername(u1.getUsername());
-//        userDTO.setEmail(u1.getEmail());
-//        userDTO.setPassword(u1.getPassword());
-//        userDTO.setBio(u1.getBio());
-//        userDTO.setRole(u1.getRole());
-//       userRepository.save(u1);
-
 
     }
 }

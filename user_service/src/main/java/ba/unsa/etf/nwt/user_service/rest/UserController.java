@@ -4,8 +4,6 @@ import ba.unsa.etf.nwt.user_service.model.UserDTO;
 import ba.unsa.etf.nwt.user_service.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.UUID;
-
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,19 +55,19 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<UserDTO> getUser(@PathVariable final UUID id) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable final Integer id) {
         return ResponseEntity.ok(userService.get(id));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")
-    public ResponseEntity<UUID> createUser(@RequestBody @Valid final UserDTO userDTO) {
+    public ResponseEntity<Integer> createUser(@RequestBody @Valid final UserDTO userDTO) {
         return new ResponseEntity<>(userService.create(userDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('admin:update')")
-    public ResponseEntity<Void> updateUser(@PathVariable final UUID id,
+    public ResponseEntity<Void> updateUser(@PathVariable final Integer id,
             @RequestBody @Valid final UserDTO userDTO) {
         userService.update(id, userDTO);
         return ResponseEntity.ok().build();
@@ -77,8 +75,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('admin:delete')")
-    public ResponseEntity<UUID> deleteUser(@PathVariable final UUID id) {
+    public ResponseEntity<Integer> deleteUser(@PathVariable final Integer id) {
         return new ResponseEntity<>(userService.delete(id), HttpStatus.OK);
     }
-
 }

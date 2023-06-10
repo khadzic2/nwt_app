@@ -7,7 +7,6 @@ import ba.unsa.etf.nwt.user_service.util.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,26 +30,26 @@ public class UserService implements UserDetailsService {
                 .toList();
     }
 
-    public UserDTO get(final UUID id) {
+    public UserDTO get(final Integer id) {
         return userRepository.findById(id)
                 .map(user -> mapToDTO(user, new UserDTO()))
                 .orElseThrow(NotFoundException::new);
     }
 
-    public UUID create(final UserDTO userDTO) {
+    public Integer create(final UserDTO userDTO) {
         final User user = new User();
         mapToEntity(userDTO, user);
         return userRepository.save(user).getId();
     }
 
-    public void update(final UUID id, final UserDTO userDTO) {
+    public void update(final Integer id, final UserDTO userDTO) {
         final User user = userRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(userDTO, user);
         userRepository.save(user);
     }
 
-    public UUID delete(final UUID id) {
+    public Integer delete(final Integer id) {
         userRepository.deleteById(id);
         return id;
     }

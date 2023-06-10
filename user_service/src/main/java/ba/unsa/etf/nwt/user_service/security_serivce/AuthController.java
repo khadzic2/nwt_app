@@ -40,7 +40,7 @@ public class AuthController {
         }
     }
 
-        @PostMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UsernamePassword user) {
         try {
             if(user.getUsername() == null || user.getPassword() == null) {

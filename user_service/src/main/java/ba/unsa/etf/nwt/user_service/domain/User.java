@@ -18,9 +18,8 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @Column(nullable = false, updatable = false, columnDefinition = "binary(16)")
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -58,12 +57,8 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(final UUID id) {
-        this.id = id;
     }
 
     public String getName() {

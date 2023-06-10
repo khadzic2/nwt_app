@@ -3,12 +3,10 @@ package ba.unsa.etf.nwt.user_service.model;
 import ba.unsa.etf.nwt.user_service.domain.Role;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.util.UUID;
-
 
 public class UserDTO {
 
-    private UUID id;
+    private Integer id;
 
     @NotNull
     @Size(max = 255)
@@ -30,11 +28,11 @@ public class UserDTO {
     private Role role;
 
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(final UUID id) {
+    public void setId(final Integer id) {
         this.id = id;
     }
 

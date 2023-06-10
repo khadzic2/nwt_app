@@ -42,17 +42,12 @@ public class AuthService {
 
     public String saveUser(UserDTO userDTO){
         userDTO.setPassword(authConfig.passwordEncoder.encode(userDTO.getPassword()));
-        //userRepository.save(userDTO);
         String jwt = jwtService.generateToken(userDTO.getUsername(), userDTO.getRole());
-        System.out.println(jwt);
-        UUID newUserUUID = userService.create(userDTO);
-        System.out.println("1");
+        Integer newUserId = userService.create(userDTO);
         User savedUser = userRepository
                 .getUserByUsername(userDTO.getUsername()).get();
-        System.out.println("2");
         Token token = saveUserToken(jwt, savedUser);
-        System.out.println(token);
-        return "User added";
+        return "User added with id: "+ newUserId;
     }
 
     private void revokeAllUserTokens(User user){
