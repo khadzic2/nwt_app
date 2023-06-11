@@ -127,7 +127,6 @@ services:
       - CONFIG_SERVER_URL=http://config-service:8888
       - EUREKA_SERVER_URL=http://eureka:8761/eureka
       - RS_DATABASE_URL=jdbc:mysql://db:3306/db_item
-      - RABBITMQ_HOST=rabbitmq
       - MYSQL_USER = root
       - MYSQL_PASSWORD = root
     expose:
@@ -182,7 +181,8 @@ services:
       - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
       - CONFIG_SERVER_URL=http://config-service:8888
       - EUREKA_SERVER_URL=http://eureka:8761/eureka
-      - IS_DATABASE_URL=jdbc:mysql://db:3306/ingredientServiceDB
+      - IS_DATABASE_URL=jdbc:mysql://db:3306/db_itemcart
+      - RABBITMQ_HOST=rabbitmq
       - MYSQL_USER = root
       - MYSQL_PASSWORD = root
     expose:
