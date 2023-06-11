@@ -1,0 +1,259 @@
+version: '3'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    build:
+      context: ./RabbitMQ
+      dockerfile: Dockerfile
+    image: docker-rabbitmq
+    expose:
+      - 5672
+      - 15672
+    networks:
+      - nwtApp
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    expose:
+      - 3306
+    networks:
+      - nwtApp
+    volumes:
+      - ./databases.sql:/docker-entrypoint-initdb.d/databases.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  configuration-service:
+    container_name: config-service
+    hostname: config-service
+    build:
+      context: ./configuration-service
+      dockerfile: Dockerfile
+    image: docker-configuration-service
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - NwtApp_GIT_USERNAME=khadzic2
+      - NwtApp_GIT_PASSWORD=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
+    expose:
+      - 8888
+    networks:
+      - nwtApp
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  eureka-service:
+    container_name: eureka
+    hostname: discovery-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    image: docker-eureka
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+    expose:
+      - 8761
+    ports:
+      - "8761:8761"
+    networks:
+      - nwtApp
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  system-events-service:
+    container_name: system-events-service
+    build:
+      context: ./system-events-service
+      dockerfile: Dockerfile
+    image: docker-system-events-service
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - CONFIG_SERVER_URL=http://config-service:8888
+      - EUREKA_SERVER_URL=http://eureka:8761/eureka
+      - SS_DATABASE_URL=jdbc:mysql://db:3306/db_system_events
+      - MYSQL_USER = root
+      - MYSQL_PASSWORD = root
+    expose:
+      - 8088
+    depends_on:
+      - configuration-service
+      - eureka-service
+      - db
+    networks:
+      - nwtApp
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  user-service:
+    container_name: user-service
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    image: docker-user-service
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - CONFIG_SERVER_URL=http://config-service:8888
+      - EUREKA_SERVER_URL=http://eureka:8761/eureka
+      - US_DATABASE_URL=jdbc:mysql://db:3306/db_user
+      - MYSQL_USER = root
+      - MYSQL_PASSWORD = root
+    expose:
+      - 8084
+    networks:
+      - nwtApp
+    depends_on:
+      - configuration-service
+      - eureka-service
+      - db
+      - system-events-service
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  item-service:
+    container_name: item-service
+    build:
+      context: ./item_service
+    image: docker-item-service
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - CONFIG_SERVER_URL=http://config-service:8888
+      - EUREKA_SERVER_URL=http://eureka:8761/eureka
+      - RS_DATABASE_URL=jdbc:mysql://db:3306/db_item
+      - MYSQL_USER = root
+      - MYSQL_PASSWORD = root
+    expose:
+      - 8086
+    networks:
+      - nwtApp
+    depends_on:
+      - rabbitmq
+      - configuration-service
+      - eureka-service
+      - db
+      - system-events-service
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  order-service:
+    container_name: order-service
+    build:
+      context: ./order_service
+      dockerfile: Dockerfile
+    image: docker-order-service
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - CONFIG_SERVER_URL=http://config-service:8888
+      - EUREKA_SERVER_URL=http://eureka:8761/eureka
+      - RRS_DATABASE_URL=jdbc:mysql://db:3306/db_order
+      - RABBITMQ_HOST=rabbitmq
+      - MYSQL_USER = root
+      - MYSQL_PASSWORD = root
+    expose:
+      - 8083
+    networks:
+      - nwtApp
+    depends_on:
+      - rabbitmq
+      - configuration-service
+      - eureka-service
+      - db
+      - system-events-service
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  item_cart-service:
+    container_name: item_cart-service
+    build:
+      context: ./itemCart_service
+      dockerfile: Dockerfile
+    image: docker-itemcart-service
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - CONFIG_SERVER_URL=http://config-service:8888
+      - EUREKA_SERVER_URL=http://eureka:8761/eureka
+      - IS_DATABASE_URL=jdbc:mysql://db:3306/db_itemcart
+      - RABBITMQ_HOST=rabbitmq
+      - MYSQL_USER = root
+      - MYSQL_PASSWORD = root
+    expose:
+      - 8085
+    networks:
+      - nwtApp
+    depends_on:
+      - configuration-service
+      - eureka-service
+      - db
+      - system-events-service
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  api-gateway:
+    container_name: api-gateway
+    hostname: api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: docker-api-gateway
+    restart: always
+    environment:
+      - JAVA_TOOL_OPTIONS=-XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xss256k
+      - EUREKA_SERVER_URL=http://eureka:8761/eureka
+    expose:
+      - 8089
+    ports:
+      - "8089:8089"
+    depends_on:
+      - rabbitmq
+      - db
+      - configuration-service
+      - eureka-service
+      - system-events-service
+      - user-service
+      - item-service
+      - order-service
+      - item_cart-service
+    networks:
+      - nwtApp
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    image: docker-frontend
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    networks:
+      - nwtApp
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+
+networks:
+  nwtApp:
+    driver: bridge
