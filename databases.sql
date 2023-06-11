@@ -13,13 +13,13 @@ GRANT ALL PRIVILEGES ON db_order.* TO 'springuser'@'%';
 GRANT ALL PRIVILEGES ON db_system_events.* TO 'springuser'@'%';
 
 USE db_user;
-create table if not exists role
+create table if not exists token
 (
-    id           char(36)     not null
+    id           int     not null
     primary key,
-    date_created datetime(6)  not null,
-    last_updated datetime(6)  not null,
-    name         varchar(255) not null,
+    expired bit(1)  not null,
+    revoked bit(1)  not null,
+    token   text not null,
     constraint UK_8sewwnpamngi6b1dwaa88askk
     unique (name)
 );
