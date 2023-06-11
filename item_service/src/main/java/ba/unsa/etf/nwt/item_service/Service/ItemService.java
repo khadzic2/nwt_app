@@ -41,7 +41,7 @@ public class ItemService {
     }
 
     public List<ItemDTO> getAllItems(){
-        return itemRepository.findAll().stream().map(orders -> mapToDTO(orders, new ItemDTO())).collect(Collectors.toList());
+        return itemRepository.findAll().stream().map(item -> mapToDTO(item, new ItemDTO())).collect(Collectors.toList());
     }
 
     public Integer addItem(ItemDTO itemDTO){
@@ -119,6 +119,9 @@ public class ItemService {
         itemDTO.setDescription(item.getDescription());
         itemDTO.setManufacturingdays(item.getManufacturingdays());
         itemDTO.setPrice(item.getPrice());
+        itemDTO.setCompared(item.isCompared());
+        itemDTO.setItemCategoryId(item.getItemCategory().getId());
+        itemDTO.setSpecificationsId(item.getSpecifications().getId());
         return itemDTO;
     }
 

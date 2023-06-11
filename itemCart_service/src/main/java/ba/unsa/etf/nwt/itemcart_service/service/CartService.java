@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.itemcart_service.service;
 
+import ba.unsa.etf.nwt.itemcart_service.DTO.CartDTO;
 import ba.unsa.etf.nwt.itemcart_service.exception.NotFoundException;
 import ba.unsa.etf.nwt.itemcart_service.model.Cart;
 import ba.unsa.etf.nwt.itemcart_service.repository.CartRepository;
@@ -51,14 +52,15 @@ public class CartService {
         cartRepository.deleteAll();
     }
 
-    public Integer create(final Cart cart) {
+    public Integer create(final CartDTO cartDTO) {
         final Cart newCart = new Cart();
         Integer cartId = null;
         ServiceInstance serviceInstanceUser = discoveryClient.getInstances("user-service").get(0);
         String resourceURL = serviceInstanceUser.getUri() + "/api/user/";
+        mapToEntity(cartDTO,newCart);
         boolean userExist = false;
         try{
-            ResponseEntity<String> response= restTemplate.getForEntity(resourceURL+cart.getUserId(), String.class);
+            ResponseEntity<String> response= restTemplate.getForEntity(resourceURL+cartDTO.getUserId(), String.class);
             if (response.getStatusCode().equals(HttpStatus.OK)) {
                 userExist = true;
 
@@ -68,7 +70,7 @@ public class CartService {
         }
         if(userExist)
         {
-            newCart.setUserId(cart.getUserId());
+            newCart.setUserId(cartDTO.getUserId());
             cartId = cartRepository.save(newCart).getId();
         }
         return cartId;
@@ -84,5 +86,10 @@ public class CartService {
 
     public Cart getCartByUserId(Integer userId) {
         return cartRepository.getCartByUserId(userId);
+    }
+
+    private void mapToEntity(final CartDTO cartDTO, final Cart cart) {
+        cart.setUserId(cartDTO.getUserId());
+        cart.setItemCarts(cartDTO.getItemCarts());
     }
 }

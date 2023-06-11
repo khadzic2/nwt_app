@@ -32,11 +32,14 @@ public class ItemController {
         this.repository = repository;
     }
 
+    //@GetMapping("/items")
+    //public ResponseEntity<List<ItemDTO>> all() {
+      //  return new ResponseEntity<>(itemService.getAllItems(), HttpStatus.OK);
+    //}
     @GetMapping("/items")
-    public ResponseEntity<List<ItemDTO>> all() {
-        return new ResponseEntity<>(itemService.getAllItems(), HttpStatus.OK);
+    List<Item> all() {
+        return repository.findAll();
     }
-
     @PostMapping("/item")
     public ResponseEntity<Integer> newItem(@RequestBody @Valid ItemDTO newItem) {
         return new ResponseEntity<>(itemService.addItem(newItem),HttpStatus.CREATED);

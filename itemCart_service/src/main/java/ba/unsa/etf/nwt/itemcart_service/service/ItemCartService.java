@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.itemcart_service.service;
 
+import ba.unsa.etf.nwt.itemcart_service.DTO.ItemCartDTO;
 import ba.unsa.etf.nwt.itemcart_service.exception.NotFoundException;
 import ba.unsa.etf.nwt.itemcart_service.model.ItemCart;
 import ba.unsa.etf.nwt.itemcart_service.model.SelectedSpecifications;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemCartService {
@@ -18,16 +20,18 @@ public class ItemCartService {
         this.itemCartRepository = itemCartRepository;
     }
 
-    public List<ItemCart> getAllItemCarts(){
-        return itemCartRepository.findAll();
+    public List<ItemCartDTO> getAllItemCarts(){
+        return itemCartRepository.findAll().stream().map(date -> mapToDTO(date, new ItemCartDTO())).collect(Collectors.toList());
     }
 
     public ItemCart getItemCartById(Integer id){
         return itemCartRepository.findById(id).orElseThrow(()-> new NotFoundException(id,"cart"));
     }
 
-    public ItemCart add(ItemCart itemCart){
-        return itemCartRepository.save(itemCart);
+    public Integer add(ItemCartDTO cartDTO){
+        ItemCart itemCart = new ItemCart();
+        mapToEntity(cartDTO,itemCart);
+        return itemCartRepository.save(itemCart).getId();
     }
 
     public void deleteItemCart(Integer id){
@@ -56,5 +60,18 @@ public class ItemCartService {
     }
     public boolean cartExistWithItem(Integer itemId){
         return itemCartRepository.countCartForItem(itemId) != 0;
+    }
+
+    private ItemCartDTO mapToDTO(final ItemCart itemCart, final ItemCartDTO itemCartDTO) {
+        itemCartDTO.setId(itemCart.getId());
+        itemCartDTO.setCartId(itemCart.getCart().getId());
+        itemCartDTO.setItemId(itemCart.getItemId());
+        itemCartDTO.setOrderId(itemCart.getOrderId());
+        return itemCartDTO;
+    }
+
+    private void mapToEntity(final ItemCartDTO itemCartDTO, final ItemCart itemCart) {
+        itemCart.setItemId(itemCartDTO.getItemId());
+        itemCart.setOrderId(itemCartDTO.getOrderId());
     }
 }

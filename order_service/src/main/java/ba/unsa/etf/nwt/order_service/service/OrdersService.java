@@ -127,7 +127,7 @@ public class OrdersService {
         int numOfDays = 0;
         for(Integer itemId: items){
             ServiceInstance serviceInstance = discoveryClient.getInstances("item-service").get(0);
-            String resourceURL = serviceInstance.getUri() + "/api/item/" + itemId + "/days";
+            String resourceURL = serviceInstance.getUri() + "/api/item/item/" + itemId + "/days";
             ResponseEntity<Integer> response = restTemplate.getForEntity(resourceURL,Integer.class);
             Integer days = response.getBody();
             if(days != null && days > numOfDays) numOfDays = days;
