@@ -1,6 +1,3 @@
-FROM maven:3.8.4-openjdk-17 AS MAVEN_BUILD
-COPY ./ ./
-
-FROM openjdk:17
-COPY --from=MAVEN_BUILD target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM rabbitmq:3.11-management
+COPY rabbitmq.conf /etc/rabbitmq/
+COPY definitions.json /etc/rabbitmq/

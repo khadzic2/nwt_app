@@ -98,8 +98,7 @@ create table if not exists cart
 
 create table if not exists item_cart
 (
-   id int NOT NULL,
-  deleted bit(1) DEFAULT NULL,
+  id int NOT NULL,
   item_id int NOT NULL,
   order_id int DEFAULT NULL,
   cart_id int DEFAULT NULL,
@@ -120,8 +119,6 @@ create table if not exists selected_specifications
   width varchar(255) NOT NULL,
   PRIMARY KEY (id)
 );
-
-
 
 USE db_order;
 create table if not exists db_order.date

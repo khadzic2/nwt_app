@@ -51,7 +51,7 @@ services:
     container_name: eureka
     hostname: discovery-server
     build:
-      context: ./eureka-server
+      context: ./eureka_service
       dockerfile: Dockerfile
     image: docker-eureka
     environment:
@@ -236,23 +236,23 @@ services:
         condition: on-failure
         max_attempts: 5
 
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend
-    image: docker-frontend
-    expose:
-      - 3000
-    ports:
-      - "3000:3000"
-    depends_on:
-      - api-gateway
-    networks:
-      - nwtApp
-    deploy:
-      restart_policy:
-        condition: on-failure
-        max_attempts: 5
+#  frontend:
+#    container_name: frontend
+#    build:
+#      context: ./frontend
+#    image: docker-frontend
+#    expose:
+#      - 3000
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - api-gateway
+#    networks:
+#      - nwtApp
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#        max_attempts: 5
 
 networks:
   nwtApp:
