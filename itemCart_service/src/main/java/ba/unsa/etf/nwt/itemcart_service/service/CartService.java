@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CartService {
@@ -32,8 +33,8 @@ public class CartService {
         this.discoveryClient = discoveryClient;
     }
 
-    public List<Cart> getAllCart() {
-        return cartRepository.findAll();
+    public List<CartDTO> getAllCart(){
+        return cartRepository.findAll().stream().map(date -> mapToDTO(date, new CartDTO())).collect(Collectors.toList());
     }
 
     public Cart getCartById(Integer id){
@@ -91,5 +92,12 @@ public class CartService {
     private void mapToEntity(final CartDTO cartDTO, final Cart cart) {
         cart.setUserId(cartDTO.getUserId());
         cart.setItemCarts(cartDTO.getItemCarts());
+    }
+
+    private CartDTO mapToDTO(final Cart cart, final CartDTO cartDTO) {
+        cartDTO.setId(cart.getId());
+        cartDTO.setUserId(cart.getUserId());
+        cartDTO.setItemCarts(cart.getItemCarts());
+        return cartDTO;
     }
 }
