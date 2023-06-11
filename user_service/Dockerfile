@@ -1,5 +1,7 @@
-FROM openjdk:11-jre-slim-buster
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-EXPOSE 8084
+FROM maven:3.8.4-openjdk-17 AS MAVEN_BUILD
+COPY ./ ./
+#RUN mvn clean package -Dmaven.test.skip=true
+
+FROM openjdk:17
+COPY --from=MAVEN_BUILD target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
