@@ -3,6 +3,7 @@ package ba.unsa.etf.nwt.item_service.Controller;
 
 import java.util.List;
 
+import ba.unsa.etf.nwt.item_service.DTO.ItemDTO;
 import ba.unsa.etf.nwt.item_service.Exceptions.NotAllowedRequest;
 import ba.unsa.etf.nwt.item_service.Exceptions.NotFoundException;
 import ba.unsa.etf.nwt.item_service.Model.Item;
@@ -17,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import ba.unsa.etf.nwt.item_service.Exceptions.RestExceptionHandler;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
@@ -30,14 +33,13 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    List<Item> all() {
-        return repository.findAll();
+    public ResponseEntity<List<ItemDTO>> all() {
+        return new ResponseEntity<>(itemService.getAllItems(), HttpStatus.OK);
     }
 
-
     @PostMapping("/item")
-    Item newItem(@RequestBody Item item) {
-        return repository.save(item);
+    public ResponseEntity<Integer> newItem(@RequestBody @Valid ItemDTO newItem) {
+        return new ResponseEntity<>(itemService.addItem(newItem),HttpStatus.CREATED);
     }
 
     @GetMapping("/item/{id}")

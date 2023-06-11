@@ -1,13 +1,16 @@
 package ba.unsa.etf.nwt.item_service.Service;
 
+import ba.unsa.etf.nwt.item_service.DTO.ItemCategoryDTO;
 import ba.unsa.etf.nwt.item_service.DTO.ItemDTO;
 import ba.unsa.etf.nwt.item_service.Exceptions.NotFoundException;
 import ba.unsa.etf.nwt.item_service.Model.Item;
+import ba.unsa.etf.nwt.item_service.Model.ItemCategory;
 import ba.unsa.etf.nwt.item_service.Repository.ItemRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +20,7 @@ import ba.unsa.etf.nwt.item_service.Response.CartExistsResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -36,8 +40,14 @@ public class ItemService {
         this.discoveryClient = discoveryClient;
     }
 
-    public List<Item> getAllItems(){
-        return itemRepository.findAll();
+    public List<ItemDTO> getAllItems(){
+        return itemRepository.findAll().stream().map(orders -> mapToDTO(orders, new ItemDTO())).collect(Collectors.toList());
+    }
+
+    public Integer addItem(ItemDTO itemDTO){
+        Item item = new Item();
+        mapToEntity(itemDTO,item);
+        return itemRepository.save(item).getId();
     }
 
     public Item getItemById(Integer id){
@@ -94,6 +104,22 @@ public class ItemService {
             exist = true;
         }
         return exist;
+    }
+
+    private void mapToEntity(final ItemDTO itemDTO, final Item item) {
+        item.setName(itemDTO.getName());
+        item.setDescription(itemDTO.getDescription());
+        item.setManufacturingdays(itemDTO.getManufacturingdays());
+        item.setPrice(itemDTO.getPrice());
+    }
+
+    private ItemDTO mapToDTO(final Item item, final ItemDTO itemDTO) {
+        itemDTO.setId(item.getId());
+        itemDTO.setName(item.getName());
+        itemDTO.setDescription(item.getDescription());
+        itemDTO.setManufacturingdays(item.getManufacturingdays());
+        itemDTO.setPrice(item.getPrice());
+        return itemDTO;
     }
 
 }
