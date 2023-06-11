@@ -1,10 +1,15 @@
 package ba.unsa.etf.nwt.user_service.logging;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Base64;
+
 @Component
 public class GRPCInterceptor implements HandlerInterceptor {
     @Autowired
@@ -30,7 +35,7 @@ public class GRPCInterceptor implements HandlerInterceptor {
         else {
             responseType = "ERROR - WrongInput/Validation";
         }
-        String username="guest";
+        String username = "guest";
 //        try{
 //            String authHeader=request.getHeader("Authorization");
 //            String token = authHeader.substring(7);
