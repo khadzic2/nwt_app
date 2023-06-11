@@ -15,7 +15,7 @@ GRANT ALL PRIVILEGES ON db_system_events.* TO 'springuser'@'%';
 USE db_user;
 create table if not exists token
 (
-    id           int     not null
+    id int not null
     primary key,
     expired bit(1)  not null,
     revoked bit(1)  not null,

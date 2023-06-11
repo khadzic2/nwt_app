@@ -31,7 +31,7 @@ services:
     container_name: config-service
     hostname: config-service
     build:
-      context: ./configuration-service
+      context: ./configuration_service
       dockerfile: Dockerfile
     image: docker-configuration-service
     environment:
