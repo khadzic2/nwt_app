@@ -1,5 +1,6 @@
 package ba.unsa.etf.nwt.itemcart_service.controller;
 
+import ba.unsa.etf.nwt.itemcart_service.DTO.ItemCartDTO;
 import ba.unsa.etf.nwt.itemcart_service.model.ItemCart;
 import ba.unsa.etf.nwt.itemcart_service.response.GetItemsResponse;
 import ba.unsa.etf.nwt.itemcart_service.service.ItemCartService;
@@ -19,13 +20,15 @@ public class ItemCartController {
         this.itemCartService = itemCartService;
     }
 
+
     @GetMapping()
-    public ResponseEntity<List<ItemCart>> all() {
+    public ResponseEntity<List<ItemCartDTO>> all() {
         return new ResponseEntity<>(itemCartService.getAllItemCarts(), HttpStatus.OK);
     }
+
     @PostMapping("/item_cart")
-    public ResponseEntity<ItemCart> newItemCart(@Valid @RequestBody ItemCart cart) {
-        return new ResponseEntity<>(itemCartService.add(cart),HttpStatus.CREATED);
+    public ResponseEntity<Integer> newItemCart(@RequestBody @Valid ItemCartDTO newCart) {
+        return new ResponseEntity<>(itemCartService.add(newCart),HttpStatus.CREATED);
     }
 
     @GetMapping("/item_cart/{id}")

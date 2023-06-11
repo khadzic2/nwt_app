@@ -38,11 +38,13 @@ public class OrderServiceApplication {
             State state2 = new State(StateType.NABAVKA_MATERIJALA.label);
             State state3 = new State(StateType.MONTIRANJE.label);
             State state4 = new State(StateType.SPREMNO_ZA_ISPORUKU.label);
+            State state5 = new State(StateType.ISPORUCENO.label);
 
             stateRepository.save(state1);
             stateRepository.save(state2);
             stateRepository.save(state3);
             stateRepository.save(state4);
+            stateRepository.save(state5);
 
             Orders orders1 = new Orders(1, date1, state1);
             Orders orders2 = new Orders(1, date2, state1);

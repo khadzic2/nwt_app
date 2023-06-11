@@ -3,6 +3,7 @@ package ba.unsa.etf.nwt.item_service.Controller;
 
 import java.util.List;
 
+import ba.unsa.etf.nwt.item_service.DTO.ItemDTO;
 import ba.unsa.etf.nwt.item_service.Exceptions.NotAllowedRequest;
 import ba.unsa.etf.nwt.item_service.Exceptions.NotFoundException;
 import ba.unsa.etf.nwt.item_service.Model.Item;
@@ -17,8 +18,10 @@ import org.springframework.web.client.RestTemplate;
 
 import ba.unsa.etf.nwt.item_service.Exceptions.RestExceptionHandler;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping(value = "/items", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
 
     private final ItemRepository repository;
@@ -29,15 +32,17 @@ public class ItemController {
         this.repository = repository;
     }
 
+    //@GetMapping("/items")
+    //public ResponseEntity<List<ItemDTO>> all() {
+      //  return new ResponseEntity<>(itemService.getAllItems(), HttpStatus.OK);
+    //}
     @GetMapping("/items")
     List<Item> all() {
         return repository.findAll();
     }
-
-
     @PostMapping("/item")
-    Item newItem(@RequestBody Item item) {
-        return repository.save(item);
+    public ResponseEntity<Integer> newItem(@RequestBody @Valid ItemDTO newItem) {
+        return new ResponseEntity<>(itemService.addItem(newItem),HttpStatus.CREATED);
     }
 
     @GetMapping("/item/{id}")
@@ -51,14 +56,14 @@ public class ItemController {
         return new ResponseEntity<>(itemService.getDaysByItem(id), HttpStatus.OK);
     }
 
-    @GetMapping("/item/cartExist")
+    @GetMapping("/item/cart/cartExist")
     public ResponseEntity<Boolean> itemInCart(@PathVariable Integer id){
         return ResponseEntity.ok(itemService.itemInCart(id));
     }
 
-    @GetMapping("/item/orderExist")
+    @GetMapping("/item/order/orderExist")
     public ResponseEntity<Boolean> itemInOrder(@PathVariable Integer id){
-        return ResponseEntity.ok(itemService.itemInOrder(id));
+       return ResponseEntity.ok(itemService.itemInOrder(id));
     }
 
 }

@@ -6,7 +6,8 @@ public enum StateType {
     PREGLED_NARUDZBE("Pregled narudzbe",0),
     NABAVKA_MATERIJALA("Nabavka materijala",1),
     MONTIRANJE("Montiranje",2),
-    SPREMNO_ZA_ISPORUKU("Spremno za isporuku",3);
+    SPREMNO_ZA_ISPORUKU("Spremno za isporuku",3),
+    ISPORUCENO("Isporuceno",4);
     public final String label;
     public final Integer idState;
     StateType(String label,Integer idState){
