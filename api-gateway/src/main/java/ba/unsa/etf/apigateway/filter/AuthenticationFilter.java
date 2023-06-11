@@ -6,10 +6,8 @@ import io.jsonwebtoken.Claims;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,18 +33,14 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private RouteValidator routeValidator;
 
-    
     @Autowired
     private JwtUtil jwtUtil;
 
     @Override
     public GatewayFilter apply(Config config){
-        log.info("pozvao se api gateway");
+        log.info("api gateway filter called");
         return ((exchange, chain)->{
             if(routeValidator.isSecured.test(exchange.getRequest())){
                 //header contains token or not
@@ -143,7 +137,6 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     private Mono<Void> onError(ServerWebExchange exchange, String errCode, String err, String errDetails, HttpStatusCode httpStatus) {
         DataBufferFactory dataBufferFactory = exchange.getResponse().bufferFactory();
-//        ObjectMapper objMapper = new ObjectMapper();
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
         return response.setComplete();

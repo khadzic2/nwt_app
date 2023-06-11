@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,28 +30,28 @@ public class OrderController {
         this.orderItemsService = orderItemsService;
         this.publisher = publisher;
     }
-
+    @PreAuthorize("hasAnyAuthority('reg_user:read', 'admin:read')")
     @GetMapping("/orders")
     public ResponseEntity<List<OrdersDTO>> all() {
         return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('reg_user:create')")
     @PostMapping("/orders")
     public ResponseEntity<Integer> newOrders(@RequestBody @Valid OrdersDTO newOrders) {
         return new ResponseEntity<>(ordersService.addOrder(newOrders),HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasAuthority('reg_user:read')")
     @GetMapping("/orders/{id}")
     public ResponseEntity<OrdersDTO> one(@PathVariable Integer id) {
         return new ResponseEntity<>(ordersService.getOrderById(id),HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('reg_user:update')")
     @PutMapping("/orders/{id}")
     public ResponseEntity<String> replaceOrders(@RequestBody @Valid OrdersDTO newOrders, @PathVariable Integer id) {
         ordersService.updateOrder(newOrders,id);
         return new ResponseEntity<>("Successfully updated!",HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAuthority('reg_user:delete')")
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<String> deleteOrders(@PathVariable Integer id) {
         orderItemsService.deleteOrder(id);

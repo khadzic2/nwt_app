@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,28 +20,28 @@ class DateController{
     public DateController(DateService dateService) {
         this.dateService = dateService;
     }
-
+    @PreAuthorize("hasAuthority('admin:read')")
     @GetMapping("/date")
     public ResponseEntity<List<DateDTO>> all() {
         return new ResponseEntity<>(dateService.getAllDates(), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyAuthority('reg_user:read', 'admin:read')")
     @GetMapping("/date/{id}")
     public ResponseEntity<DateDTO> one(@PathVariable Integer id) {
         return new ResponseEntity<>(dateService.getDateById(id),HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyAuthority('reg_user:create', 'admin:create')")
     @PostMapping("/date")
     public ResponseEntity<Integer> newDate(@RequestBody @Valid DateDTO newDate) {
         return new ResponseEntity<>(dateService.addDate(newDate),HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasAnyAuthority('reg_user:update', 'admin:update')")
     @PutMapping("/date/{id}")
     public ResponseEntity<String> replaceDate(@RequestBody @Valid DateDTO newDate, @PathVariable Integer id) {
         dateService.updateDate(newDate,id);
         return new ResponseEntity<>("Successfully updated!",HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyAuthority('reg_user:delete', 'admin:delete')")
     @DeleteMapping("/date/{id}")
     public ResponseEntity<String> deleteDate(@PathVariable Integer id) {
         dateService.deleteDate(id);

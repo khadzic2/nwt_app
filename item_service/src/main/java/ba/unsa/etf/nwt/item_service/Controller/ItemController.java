@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,10 +37,12 @@ public class ItemController {
     //public ResponseEntity<List<ItemDTO>> all() {
       //  return new ResponseEntity<>(itemService.getAllItems(), HttpStatus.OK);
     //}
+    @PreAuthorize("hasAnyAuthority('admin:read')")
     @GetMapping("/items")
     List<Item> all() {
         return repository.findAll();
     }
+    @PreAuthorize("hasAnyAuthority('admin:create')")
     @PostMapping("/item")
     public ResponseEntity<Integer> newItem(@RequestBody @Valid ItemDTO newItem) {
         return new ResponseEntity<>(itemService.addItem(newItem),HttpStatus.CREATED);
@@ -55,12 +58,12 @@ public class ItemController {
     ResponseEntity<Integer> getDaysByItem(@PathVariable Integer id) {
         return new ResponseEntity<>(itemService.getDaysByItem(id), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasAnyAuthority('user:read')")
     @GetMapping("/item/cart/cartExist")
     public ResponseEntity<Boolean> itemInCart(@PathVariable Integer id){
         return ResponseEntity.ok(itemService.itemInCart(id));
     }
-
+    @PreAuthorize("hasAnyAuthority('admin:create')")
     @GetMapping("/item/order/orderExist")
     public ResponseEntity<Boolean> itemInOrder(@PathVariable Integer id){
        return ResponseEntity.ok(itemService.itemInOrder(id));
