@@ -8,14 +8,12 @@ import jakarta.validation.constraints.NotNull;
 public class ItemCart {
 
     public ItemCart() {
-        this.deleted = false;
     }
 
     public ItemCart(Cart cart, Integer itemId, Integer orderId, SelectedSpecifications selectedSpecifications) {
         this.cart = cart;
         this.itemId = itemId;
         this.orderId = orderId;
-        this.deleted = false;
         this.selectedSpecifications = selectedSpecifications;
     }
 
@@ -50,8 +48,6 @@ public class ItemCart {
 
     private Integer orderId;
 
-    private Boolean deleted;
-
     public Cart getCart() {
         return cart;
     }
@@ -74,13 +70,5 @@ public class ItemCart {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
     }
 }
