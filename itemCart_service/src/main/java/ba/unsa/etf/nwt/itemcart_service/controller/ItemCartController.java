@@ -26,32 +26,32 @@ public class ItemCartController {
     public ResponseEntity<List<ItemCartDTO>> all() {
         return new ResponseEntity<>(itemCartService.getAllItemCarts(), HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:create')")
+    @PreAuthorize("hasAuthority('customer:create')")
     @PostMapping("/item_cart")
     public ResponseEntity<Integer> newItemCart(@RequestBody @Valid ItemCartDTO newCart) {
         return new ResponseEntity<>(itemCartService.add(newCart),HttpStatus.CREATED);
     }
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/item_cart/{id}")
     public ResponseEntity<ItemCart> one(@PathVariable Integer id) {
         return new ResponseEntity<>(itemCartService.getItemCartById(id),HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:delete')")
+    @PreAuthorize("hasAuthority('customer:delete')")
     @DeleteMapping("/item_cart/{id}")
     public void delete(@PathVariable Integer id) {
         itemCartService.deleteItemCart(id);
     }
-    @PreAuthorize("hasAuthority('reg_user:delete')")
+    @PreAuthorize("hasAuthority('customer:delete')")
     @DeleteMapping("/item_cart/{order_id}")
     public void deleteByOrderId(@PathVariable Integer order_id){
         itemCartService.deleteByOrderId(order_id);
     }
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/item_cart/order/{order_id}")
     public ResponseEntity<List<GetItemsResponse>> itemsByOrderId(@PathVariable Integer order_id) {
         return new ResponseEntity<>(itemCartService.getAllByOrderId(order_id),HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/item_cart/{itemId}/cartExist")
     public ResponseEntity<Boolean> orderExist(@PathVariable Integer itemId){
         return new ResponseEntity<>(itemCartService.cartExistWithItem(itemId),HttpStatus.OK);

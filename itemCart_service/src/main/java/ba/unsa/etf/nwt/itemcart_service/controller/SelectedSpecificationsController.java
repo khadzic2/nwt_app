@@ -17,13 +17,13 @@ public class SelectedSpecificationsController {
     public SelectedSpecificationsController(SelectedSpecificationsService selectedSpecificationsService) {
         this.selectedSpecificationsService = selectedSpecificationsService;
     }
-    @PreAuthorize("hasAuthority('reg_user:create')")
+    @PreAuthorize("hasAuthority('customer:create')")
     @PostMapping()
     ResponseEntity<SelectedSpecifications> newSpecifications(@Valid @RequestBody SelectedSpecifications selectedSpecifications) {
         return new ResponseEntity<>(selectedSpecificationsService.add(selectedSpecifications),HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/{id}")
     ResponseEntity<SelectedSpecifications> one(@PathVariable Integer id) {
         return new ResponseEntity<>(selectedSpecificationsService.getSpecificationsById(id),HttpStatus.OK);

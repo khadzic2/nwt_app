@@ -19,9 +19,9 @@ public enum Role {
                     Permission.USER_READ,
                     Permission.USER_DELETE,
                     Permission.USER_UPDATE,
-                    Permission.REG_USER_READ,
-                    Permission.REG_USER_UPDATE,
-                    Permission.REG_USER_DELETE
+                    Permission.CUSTOMER_READ,
+                    Permission.CUSTOMER_UPDATE,
+                    Permission.CUSTOMER_DELETE
             )
     ),
     USER(Set.of(
@@ -30,12 +30,12 @@ public enum Role {
             Permission.USER_DELETE,
             Permission.USER_CREATE
     )),
-    REG_USER(
+    CUSTOMER(
             Set.of(
-                    Permission.REG_USER_READ,
-                    Permission.REG_USER_UPDATE,
-                    Permission.REG_USER_DELETE,
-                    Permission.REG_USER_CREATE,
+                    Permission.CUSTOMER_READ,
+                    Permission.CUSTOMER_UPDATE,
+                    Permission.CUSTOMER_DELETE,
+                    Permission.CUSTOMER_CREATE,
                     Permission.USER_READ,
                     Permission.USER_UPDATE,
                     Permission.USER_DELETE,

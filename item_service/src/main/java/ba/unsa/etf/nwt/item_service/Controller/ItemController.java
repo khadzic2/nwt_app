@@ -58,7 +58,7 @@ public class ItemController {
     ResponseEntity<Integer> getDaysByItem(@PathVariable Integer id) {
         return new ResponseEntity<>(itemService.getDaysByItem(id), HttpStatus.OK);
     }
-    @PreAuthorize("hasAnyAuthority('user:read')")
+    @PreAuthorize("hasAnyAuthority('customer:read')")
     @GetMapping("/item/cart/cartExist")
     public ResponseEntity<Boolean> itemInCart(@PathVariable Integer id){
         return ResponseEntity.ok(itemService.itemInCart(id));

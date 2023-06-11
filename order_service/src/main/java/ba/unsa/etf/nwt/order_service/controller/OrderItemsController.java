@@ -19,17 +19,17 @@ public class OrderItemsController {
     public OrderItemsController(OrderItemsService orderItemsService) {
         this.orderItemsService = orderItemsService;
     }
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/orderitems")
     public ResponseEntity<List<OrderItemsDTO>> all() {
         return new ResponseEntity<>(orderItemsService.getAllOrderItems(), HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:create')")
+    @PreAuthorize("hasAuthority('customer:create')")
     @PostMapping("/orderitems")
     public ResponseEntity<Integer> newOrderItems(@RequestBody @Valid OrderItemsDTO newOrderItems) {
         return new ResponseEntity<>(orderItemsService.addOrderItems(newOrderItems),HttpStatus.CREATED);
     }
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/orderitems/{id}")
     public ResponseEntity<OrderItemsDTO> one(@PathVariable Integer id) {
         return new ResponseEntity<>(orderItemsService.getOrderItemsById(id),HttpStatus.OK);

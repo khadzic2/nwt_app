@@ -30,28 +30,28 @@ public class OrderController {
         this.orderItemsService = orderItemsService;
         this.publisher = publisher;
     }
-    @PreAuthorize("hasAnyAuthority('reg_user:read', 'admin:read')")
+    @PreAuthorize("hasAnyAuthority('customer:read', 'admin:read')")
     @GetMapping("/orders")
     public ResponseEntity<List<OrdersDTO>> all() {
         return new ResponseEntity<>(ordersService.getAllOrders(), HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:create')")
+    @PreAuthorize("hasAuthority('customer:create')")
     @PostMapping("/orders")
     public ResponseEntity<Integer> newOrders(@RequestBody @Valid OrdersDTO newOrders) {
         return new ResponseEntity<>(ordersService.addOrder(newOrders),HttpStatus.CREATED);
     }
-    @PreAuthorize("hasAuthority('reg_user:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/orders/{id}")
     public ResponseEntity<OrdersDTO> one(@PathVariable Integer id) {
         return new ResponseEntity<>(ordersService.getOrderById(id),HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:update')")
+    @PreAuthorize("hasAuthority('customer:update')")
     @PutMapping("/orders/{id}")
     public ResponseEntity<String> replaceOrders(@RequestBody @Valid OrdersDTO newOrders, @PathVariable Integer id) {
         ordersService.updateOrder(newOrders,id);
         return new ResponseEntity<>("Successfully updated!",HttpStatus.OK);
     }
-    @PreAuthorize("hasAuthority('reg_user:delete')")
+    @PreAuthorize("hasAuthority('customer:delete')")
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<String> deleteOrders(@PathVariable Integer id) {
         orderItemsService.deleteOrder(id);
