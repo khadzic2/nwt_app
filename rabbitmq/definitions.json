@@ -1,7 +1,7 @@
 {
   "exchanges": [
     {
-      "name": "delete-cart-exchange",
+      "name": "delete-order-exchange",
       "vhost": "/",
       "type": "direct",
       "durable": true,
@@ -10,7 +10,7 @@
       "arguments": {}
     },
     {
-      "name": "revert-cart-delete-exchange",
+      "name": "revert-order-delete-exchange",
       "vhost": "/",
       "type": "direct",
       "durable": true,
@@ -21,14 +21,14 @@
   ],
   "queues": [
     {
-      "name": "delete-cart-queue",
+      "name": "delete-order-queue",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {}
     },
     {
-      "name": "revert-cart-delete-queue",
+      "name": "revert-order-delete-queue",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
@@ -37,19 +37,19 @@
   ],
   "bindings": [
     {
-      "source": "delete-cart-exchange",
+      "source": "delete-order-exchange",
       "vhost": "/",
-      "destination": "delete-cart-queue",
+      "destination": "delete-order-queue",
       "destination_type": "queue",
-      "routing_key": "delete-cart-routing-key",
+      "routing_key": "delete-order-routing-key",
       "arguments": {}
     },
     {
-      "source": "revert-cart-delete-exchange",
+      "source": "revert-order-delete-exchange",
       "vhost": "/",
-      "destination": "revert-cart-delete-queue",
+      "destination": "revert-order-delete-queue",
       "destination_type": "queue",
-      "routing_key": "revert-cart-delete-routing-key",
+      "routing_key": "revert-order-delete-routing-key",
       "arguments": {}
     }
   ]
