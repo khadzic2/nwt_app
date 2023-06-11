@@ -20,142 +20,159 @@ create table if not exists token
     expired bit(1)  not null,
     revoked bit(1)  not null,
     token   text not null,
-    constraint UK_8sewwnpamngi6b1dwaa88askk
-    unique (name)
+    token_type varchar(255) not null,
+    user_id int DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY FKe32ek7ixanakfqsdaokm4q9y2 (user_id),
+  CONSTRAINT FKe32ek7ixanakfqsdaokm4q9y2 FOREIGN KEY (user_id) REFERENCES user (id)
 );
 create table if not exists user
 (
-    id           char(36)     not null
-        primary key,
-    date_created datetime(6)  not null,
-    email        varchar(255) not null,
-    first_name   varchar(20)  not null,
-    last_name    varchar(20)  not null,
-    last_updated datetime(6)  not null,
-    password     varchar(255) null,
-    username     varchar(255) not null,
-    role_id      char(36)     not null,
-    constraint UK_ob8kqyqqgmefl0aco34akdtpe
-        unique (email),
-    constraint UK_sb8bbouer5wak8vyiiy4pf2bx
-        unique (username),
-    constraint FKk0j847d0uhn0nxb3a1grvqdao
-        foreign key (role_id) references role (id)
+  id int NOT NULL,
+  email varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  password varchar(255) NOT NULL,
+  role smallint DEFAULT NULL,
+  username varchar(255) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY UK_ob8kqyqqgmefl0aco34akdtpe (email),
+  UNIQUE KEY UK_sb8bbouer5wak8vyiiy4pf2bx (username)
 );
-
-INSERT INTO db_user.role (id, date_created, last_updated, name) VALUES ('39f815d9-9f82-4015-858c-a5bf37d7a3ae', '2022-05-18 13:52:03.169084', '2022-05-18 13:52:03.169084', 'User');
-INSERT INTO db_user.role (id, date_created, last_updated, name) VALUES ('4cc8d514-53b7-4c2b-9c20-c394788d5447', '2022-05-18 13:52:03.084270', '2022-05-18 13:52:03.084270', 'Administrator');
-
-INSERT INTO db_user.user (id, date_created, email, first_name, last_name, last_updated, password, username, role_id) VALUES ('1124dc7e-1a3a-4a2b-9c8b-c7a3d3ed9476', '2022-05-18 13:52:03.215990', 'admin@nesto.com', 'Administrator', 'Administrator', '2022-05-18 13:52:03.215990', 'Password1!', 'admin', '4cc8d514-53b7-4c2b-9c20-c394788d5447');
-INSERT INTO db_user.user (id, date_created, email, first_name, last_name, last_updated, password, username, role_id) VALUES ('d655a515-aa56-40ca-a1cc-78a896e03c5e', '2022-05-18 13:52:03.262818', 'user@nesto.com', 'User', 'User', '2022-05-18 13:52:03.262818', 'Password1!', 'user', '39f815d9-9f82-4015-858c-a5bf37d7a3ae');
 
 
 USE db_item;
-create table if not exists db_item.picture
+create table if not exists db_item.item
 (
-    id           char(36)     not null
-        primary key,
-    date_created datetime(6)  not null,
-    last_updated datetime(6)  not null,
-    name         varchar(255) null,
-    pic_byte     mediumblob   null,
-    type         varchar(255) null
+  id int NOT NULL,
+  compared bit(1) NOT NULL,
+  description varchar(255) DEFAULT NULL,
+  manufacturingdays int DEFAULT NULL,
+  name varchar(255) DEFAULT NULL,
+  price double DEFAULT NULL,
+  status varchar(255) DEFAULT NULL,
+  image_id bigint DEFAULT NULL,
+  itemcategory_id int DEFAULT NULL,
+  specifications_id int DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY FKrl4dencftq7wtvpmybgj0omn3 (image_id),
+  KEY FK8baqvq4535sfmo6irqkap52kr (itemcategory_id),
+  KEY FK6jvh4g4y9mmpb2q97y0f0ueth (specifications_id),
+  CONSTRAINT FK6jvh4g4y9mmpb2q97y0f0ueth FOREIGN KEY (specifications_id) REFERENCES specifications (id),
+  CONSTRAINT FK8baqvq4535sfmo6irqkap52kr FOREIGN KEY (itemcategory_id) REFERENCES item_category (id),
+  CONSTRAINT FKrl4dencftq7wtvpmybgj0omn3 FOREIGN KEY (image_id) REFERENCES product_image (id)
 );
 
-create table if not exists recipeServiceDB.category
+create table if not exists db_item.item_category
 (
-    id                  char(36)    not null
-        primary key,
-    date_created        datetime(6) not null,
-    last_updated        datetime(6) not null,
-    name                varchar(50) not null,
-    category_picture_id char(36)    not null,
-    constraint FK6lxc43bviodc19wbbanus223d
-        foreign key (category_picture_id) references recipeServiceDB.picture (id)
+ id int NOT NULL,
+  category_name varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
 );
 
-create table if not exists recipeServiceDB.Recipe
+create table if not exists db_item.product_image
 (
-    id                 char(36)     not null
-        primary key,
-    date_created       datetime(6)  not null,
-    deleted            bit          null,
-    description        varchar(255) null,
-    last_updated       datetime(6)  not null,
-    name               varchar(50)  not null,
-    preparation_time   int          not null,
-    userid             char(36)     not null,
-    recipe_category_id char(36)     not null,
-    recipe_picture_id  char(36)     not null,
-    constraint FK8w5y7i7u924xuhxbeumltsv84
-        foreign key (recipe_category_id) references recipeServiceDB.category (id),
-    constraint FKqe2kb8qs58vg0hiqfa4i2sx3o
-        foreign key (recipe_picture_id) references recipeServiceDB.picture (id)
-);
+  id bigint NOT NULL AUTO_INCREMENT,
+  imagedata mediumblob,
+  name varchar(255) DEFAULT NULL,
+  type varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id));
 
-create table if not exists recipeServiceDB.step
+create table if not exists db_item.specifications
 (
-    id              char(36)     not null
-        primary key,
-    date_created    datetime(6)  not null,
-    description     varchar(255) not null,
-    last_updated    datetime(6)  not null,
-    o_number        int          not null,
-    step_picture_id char(36)     null,
-    step_recipe_id  char(36)     not null,
-    constraint FKe6orvvb80cyvvjiam91ylppw0
-        foreign key (step_recipe_id) references recipeServiceDB.recipe (id),
-    constraint FKp0y6k3ir54dm00x72e2cg3e4v
-        foreign key (step_picture_id) references recipeServiceDB.picture (id)
+  id int NOT NULL,
+  colors varchar(255) DEFAULT NULL,
+  depth varchar(255) DEFAULT NULL,
+  height varchar(255) DEFAULT NULL,
+  material varchar(255) DEFAULT NULL,
+  width varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
 );
 
 USE db_itemcart;
-create table if not exists rating
+create table if not exists cart
 (
-    id           char(36)     not null
-        primary key,
-    comment      varchar(255) not null,
-    date_created datetime(6)  not null,
-    last_updated datetime(6)  not null,
-    rating       int          not null,
-    recipe_id    char(36)     not null,
-    user_id      char(36)     not null
+    id int NOT NULL,
+  user_id int NOT NULL,
+  PRIMARY KEY (id)
 );
+
+create table if not exists item_cart
+(
+   id int NOT NULL,
+  deleted bit(1) DEFAULT NULL,
+  item_id int NOT NULL,
+  order_id int DEFAULT NULL,
+  cart_id int DEFAULT NULL,
+  selected_specifications_id int NOT NULL,
+  PRIMARY KEY (id),
+  KEY FKqo72rduipl4c9r24tvd62oob3 (cart_id),
+  KEY FKt4ogiou540upv3yhajrdsrren (selected_specifications_id),
+  CONSTRAINT FKqo72rduipl4c9r24tvd62oob3 FOREIGN KEY (cart_id) REFERENCES cart (id),
+  CONSTRAINT FKt4ogiou540upv3yhajrdsrren FOREIGN KEY (selected_specifications_id) REFERENCES selected_specifications (id)
+);
+create table if not exists selected_specifications
+(
+  id int NOT NULL,
+  color varchar(255) NOT NULL,
+  depth varchar(255) NOT NULL,
+  height varchar(255) NOT NULL,
+  material varchar(255) NOT NULL,
+  width varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 
 
 USE db_order;
-create table if not exists db_order.picture
+create table if not exists db_order.date
 (
-    id       char(36)     not null
-        primary key,
-    name     varchar(255) null,
-    pic_byte mediumblob   null,
-    type     varchar(255) null
+   id int NOT NULL,
+  delay_date date DEFAULT NULL,
+  delivery_date date NOT NULL,
+  PRIMARY KEY (id)
 );
 
-create table if not exists db_order.ingredient
+create table if not exists db_order.order_items
 (
-    id                    char(36)     not null
-        primary key,
-    calorie_count         int          null,
-    carbohidrates         int          null,
-    fat                   int          null,
-    measuring_unit        varchar(50)  null,
-    name                  varchar(255) null,
-    proteins              int          null,
-    vitamins              int          null,
-    ingredient_picture_id char(36)     null,
-    constraint FK4x4ygxyhqi7gwh3pd5kdafouf
-        foreign key (ingredient_picture_id) references ingredientServiceDB.picture (id)
+ id int NOT NULL,
+  item_id int NOT NULL,
+  order_id int NOT NULL,
+  PRIMARY KEY (id),
+  KEY FKbioxgbv59vetrxe0ejfubep1w (order_id),
+  CONSTRAINT FKbioxgbv59vetrxe0ejfubep1w FOREIGN KEY (order_id) REFERENCES orders (id)
 );
 
-create table if not exists ingredientServiceDB.ingredient_recipe
+create table if not exists db_order.orders
 (
-    id                     char(36) not null
-        primary key,
-    quantity               int      null,
-    recipeid               char(36) null,
-    ingredient_recipeid_id char(36) not null,
-    constraint FKm9gqek56u99yj7dra5w6uipln
-        foreign key (ingredient_recipeid_id) references ingredientServiceDB.ingredient (id)
+    id int NOT NULL,
+  user_id int NOT NULL,
+  date_id int NOT NULL,
+  state_id int NOT NULL,
+  PRIMARY KEY (id),
+  KEY FK7q9v44ue1fwruouiflpovu9f4 (date_id),
+  KEY FKa0lyfl15wni9t4kvyic3tcuog (state_id),
+  CONSTRAINT FK7q9v44ue1fwruouiflpovu9f4 FOREIGN KEY (date_id) REFERENCES date (id),
+  CONSTRAINT FKa0lyfl15wni9t4kvyic3tcuog FOREIGN KEY (state_id) REFERENCES state (id)
+);
+
+create table if not exists db_order.state
+(
+ id int NOT NULL,
+  state varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+
+
+USE db_system_events;
+create table if not exists db_system_events.action
+(
+   id int NOT NULL,
+  action_type varchar(255) NOT NULL,
+  resource_name varchar(255) NOT NULL,
+  response_type varchar(255) NOT NULL,
+  service varchar(255) NOT NULL,
+  timestamp datetime(6) NOT NULL,
+  username varchar(255) NOT NULL,
+  PRIMARY KEY (id)
 );
