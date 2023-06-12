@@ -1,0 +1,7 @@
+img{
+    width: inherit;
+    height: inherit;
+}
+.carousel-item{
+    height: 45rem;
+}

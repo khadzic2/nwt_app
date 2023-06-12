@@ -1,0 +1,8 @@
+.bg{
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity));
+}
+
+.shadow-nav {
+    box-shadow: 0 0 10px 7px rgba(0,0,0,0.5);
+}
