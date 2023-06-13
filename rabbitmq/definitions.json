@@ -1,0 +1,56 @@
+{
+  "exchanges": [
+    {
+      "name": "delete-order-exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "revert-order-delete-exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "delete-order-queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "revert-order-delete-queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "delete-order-exchange",
+      "vhost": "/",
+      "destination": "delete-order-queue",
+      "destination_type": "queue",
+      "routing_key": "delete-order-routing-key",
+      "arguments": {}
+    },
+    {
+      "source": "revert-order-delete-exchange",
+      "vhost": "/",
+      "destination": "revert-order-delete-queue",
+      "destination_type": "queue",
+      "routing_key": "revert-order-delete-routing-key",
+      "arguments": {}
+    }
+  ]
+}
