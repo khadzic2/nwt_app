@@ -15,6 +15,15 @@ public class SelectedSpecifications {
     private ItemCart itemCart;
     @NotNull(message="color Can't be null!")
     private String color;
+    private Integer amount;
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
     public ItemCart getItemCart() {
         return itemCart;
@@ -83,12 +92,13 @@ public class SelectedSpecifications {
     public SelectedSpecifications() {
     }
 
-    public SelectedSpecifications(String color, String height, String width, String depth, String material) {
+    public SelectedSpecifications(String color, String height, String width, String depth, String material, Integer amount) {
         this.color = color;
         this.height = height;
         this.width = width;
         this.depth = depth;
         this.material = material;
+        this.amount = amount;
     }
 
 }
