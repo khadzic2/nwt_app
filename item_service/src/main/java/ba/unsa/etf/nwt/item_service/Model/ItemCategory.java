@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,16 @@ public class ItemCategory {
     @JsonIgnoreProperties("itemCategory")
     private List<Item> items;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id")
+    private ItemCategory parentCategory;
+
+    @OneToMany(mappedBy = "parentCategory")
+    private List<ItemCategory> subCategories;
+
     public ItemCategory() {
     }
+
 
     public Integer getId() {
         return id;
@@ -44,4 +53,26 @@ public class ItemCategory {
         this.items = items;
     }
 
+    public ItemCategory getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(ItemCategory parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
+    public List<ItemCategory> getSubCategories() {
+        return subCategories;
+    }
+
+    public ItemCategory(String category_name) {
+    }
+
+    public void addSubCategory(ItemCategory subCategory) {
+        if (subCategories == null) {
+            subCategories = new ArrayList<>();
+        }
+        subCategories.add(subCategory);
+        subCategory.setParentCategory(this);
+    }
 }
