@@ -14,16 +14,13 @@ import java.util.List;
 @Setter
 public class CartDTO {
     private Integer id;
-    private Collection<ItemCart> itemCarts;
     @NotNull(message="User id can't be null!")
     private Integer userId;
-
 
     public CartDTO() {
     }
 
     public CartDTO(Collection<ItemCart> itemCarts, Integer userId) {
-        this.itemCarts = itemCarts;
         this.userId = userId;
     }
 }
