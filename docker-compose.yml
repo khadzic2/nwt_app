@@ -102,7 +102,7 @@ services:
   user-service:
     container_name: user-service
     build:
-      context: ./user-service
+      context: ./user_service
       dockerfile: Dockerfile
     image: docker-user-service
     environment:

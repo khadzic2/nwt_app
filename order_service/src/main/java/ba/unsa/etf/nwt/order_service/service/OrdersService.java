@@ -82,7 +82,9 @@ public class OrdersService {
     }
 
     public void deleteOrder(Integer id){
-        orderRepository.deleteById(id);
+        Orders order = orderRepository.findById(id).orElseThrow(()->new NotFoundException(id,"order"));
+        order.setDeleted(true);
+        orderRepository.save(order);
     }
 
     public void deleteAll(){
@@ -139,6 +141,7 @@ public class OrdersService {
         ordersDTO.setUserId(orders.getUserId());
         ordersDTO.setDateId(orders.getDate().getId());
         ordersDTO.setStateId(orders.getState().getId());
+        ordersDTO.setDeleted(orders.getDeleted());
         return ordersDTO;
     }
 
@@ -148,6 +151,7 @@ public class OrdersService {
         Date date = dateRepository.findById(ordersDTO.getDateId()).orElseThrow(()-> new NotFoundException(ordersDTO.getDateId(), "date"));
         orders.setDate(date);
         orders.setState(state);
+        orders.setDeleted(ordersDTO.getDeleted());
     }
 
 }

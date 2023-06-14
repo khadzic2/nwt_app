@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import NavMenu from "../components/NavMenu";
 import "../style/Home.css"
+import UserService from "../services/UserService";
 
 class Home extends Component {
     render() {

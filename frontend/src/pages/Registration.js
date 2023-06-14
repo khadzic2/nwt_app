@@ -3,6 +3,9 @@ import NavMenu from "../components/NavMenu";
 import {Link} from "react-router-dom";
 
 class Registration extends Component{
+    onSubmit = async event => {
+        event.preventDefault();
+    }
     render() {
         return(
             <>
@@ -12,25 +15,25 @@ class Registration extends Component{
                     <hr/>
                     <div className="row my-4 h-100">
                         <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
-                            <form>
+                            <form onSubmit={this.onSubmit}>
                                 <div className="form my-3">
-                                    <label htmlFor="Ime">Ime</label>
+                                    <label htmlFor="punoIme">Ime i prezime</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="Ime"
-                                        placeholder="ime"
+                                        id="Naziv"
+                                        placeholder="ime i prezime"
                                     />
                                 </div>
-                                <div className="form my-3">
-                                    <label htmlFor="Prezime">Prezime</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="Prezime"
-                                        placeholder="prezime"
-                                    />
-                                </div>
+                                {/*<div className="form my-3">*/}
+                                {/*    <label htmlFor="Prezime">Prezime</label>*/}
+                                {/*    <input*/}
+                                {/*        type="text"*/}
+                                {/*        className="form-control"*/}
+                                {/*        id="Prezime"*/}
+                                {/*        placeholder="prezime"*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                                 <div className="form my-3">
                                     <label htmlFor="Email">Email address</label>
                                     <input
@@ -41,7 +44,7 @@ class Registration extends Component{
                                     />
                                 </div>
                                 <div className="form my-3">
-                                    <label htmlFor="KorisnickoIme">Prezime</label>
+                                    <label htmlFor="KorisnickoIme">Korisničko ime</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -62,7 +65,7 @@ class Registration extends Component{
                                     <p>Posjedujete profil? <Link to="/prijava" className="text-decoration-underline text-black">Prijava</Link></p>
                                 </div>
                                 <div className="text-center">
-                                    <button className="my-2 mx-auto btn btn-dark" type="submit" disabled>
+                                    <button className="my-2 mx-auto btn btn-dark" type="submit">
                                         Registracija
                                     </button>
                                 </div>
