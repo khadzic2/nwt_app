@@ -8,13 +8,11 @@ import ba.unsa.etf.nwt.item_service.Repository.ItemCategoryRepository;
 import ba.unsa.etf.nwt.item_service.Repository.ItemRepository;
 import ba.unsa.etf.nwt.item_service.Repository.SpecificationsRepository;
 import ba.unsa.etf.nwt.item_service.Service.ItemCategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -37,6 +35,9 @@ public class ItemCategoryController {
         return new ResponseEntity<>(itemCategoryService.addCategory(newCategory),HttpStatus.CREATED);
     }
 
+    @GetMapping("/room/{roomId}")
+    public List<ItemCategory> getCategoriesForRoom(@PathVariable Integer roomId) {
+        return itemCategoryService.getCategoriesForRoom(roomId);
+    }
 
-
-}
+    }

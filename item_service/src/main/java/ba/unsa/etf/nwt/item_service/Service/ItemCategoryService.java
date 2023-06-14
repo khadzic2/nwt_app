@@ -55,4 +55,8 @@ public class ItemCategoryService {
         return itemCategoryDTO;
     }
 
+    public List<ItemCategory> getCategoriesForRoom(Integer roomId) {
+        return itemCategoryRepository.findByItems_RoomId(roomId);
+    }
+
 }
