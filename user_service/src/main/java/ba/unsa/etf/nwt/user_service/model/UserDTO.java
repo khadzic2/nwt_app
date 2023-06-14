@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserDTO {
-
     private Integer id;
-
     @NotNull
     @Size(max = 255)
     private String name;

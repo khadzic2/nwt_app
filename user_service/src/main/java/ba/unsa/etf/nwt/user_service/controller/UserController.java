@@ -1,4 +1,4 @@
-package ba.unsa.etf.nwt.user_service.rest;
+package ba.unsa.etf.nwt.user_service.controller;
 
 import ba.unsa.etf.nwt.user_service.model.UserDTO;
 import ba.unsa.etf.nwt.user_service.service.UserService;
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasRole;
-
 
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)

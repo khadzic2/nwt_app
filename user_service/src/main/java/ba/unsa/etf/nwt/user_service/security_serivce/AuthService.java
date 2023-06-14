@@ -3,7 +3,7 @@ package ba.unsa.etf.nwt.user_service.security_serivce;
 import ba.unsa.etf.nwt.user_service.domain.Role;
 import ba.unsa.etf.nwt.user_service.domain.User;
 import ba.unsa.etf.nwt.user_service.model.UserDTO;
-import ba.unsa.etf.nwt.user_service.repos.UserRepository;
+import ba.unsa.etf.nwt.user_service.repository.UserRepository;
 import ba.unsa.etf.nwt.user_service.security_serivce.token.Token;
 import ba.unsa.etf.nwt.user_service.security_serivce.token.TokenRepository;
 import ba.unsa.etf.nwt.user_service.security_serivce.token.TokenType;
@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 
 @Service
