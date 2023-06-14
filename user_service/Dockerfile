@@ -1,4 +1,4 @@
-FROM maven:3.8.4-openjdk-17 AS MAVEN_BUILD
+FROM maven:3.8.1-openjdk-17 AS MAVEN_BUILD
 COPY ./ ./
 RUN mvn clean package -Dmaven.test.skip=true
 

@@ -15,23 +15,19 @@ import java.util.List;
 @Getter
 @Setter
 public class ItemCartDTO {
-    private Integer id;
     private Integer selectedSpecificationsId;
     private Integer cartId;
     private Integer itemId;
 
     private Integer orderId;
 
-    private Boolean deleted;
-
-
     public ItemCartDTO() {
     }
 
-    public ItemCartDTO(Integer cartId, Integer itemId, Integer orderId, Boolean deleted) {
+    public ItemCartDTO(Integer cartId, Integer itemId, Integer selectedSpecificationsId, Integer orderId) {
         this.cartId = cartId;
         this.itemId = itemId;
+        this.selectedSpecificationsId = selectedSpecificationsId;
         this.orderId = orderId;
-        this.deleted = deleted;
     }
 }

@@ -94,7 +94,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 new AntPathRequestMatcher("/api/auth/register"),
                 new AntPathRequestMatcher("/api/auth/validate"),
                 new AntPathRequestMatcher("/api/auth/token"),
-                new AntPathRequestMatcher("/api/auth/login")
+                new AntPathRequestMatcher("/api/auth/login"),
+                new AntPathRequestMatcher("/api/users/user/**")
         );
 
         for (RequestMatcher matcher : securedMatchers) {
