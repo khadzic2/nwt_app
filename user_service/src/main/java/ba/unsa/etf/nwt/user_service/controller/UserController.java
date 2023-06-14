@@ -1,4 +1,4 @@
-package ba.unsa.etf.nwt.user_service.rest;
+package ba.unsa.etf.nwt.user_service.controller;
 
 import ba.unsa.etf.nwt.user_service.model.UserDTO;
 import ba.unsa.etf.nwt.user_service.service.UserService;
@@ -18,13 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasRole;
-
-
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @ComponentScan("ba.unsa.etf.nwt.user_service")
-@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
 
     private final UserService userService;
@@ -35,26 +31,12 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.findAll());
     }
 
-    @GetMapping("/sayHello")
-    public String sayHello() {
-        return ("Hello from userController");
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> postUser(@RequestBody @Valid final UserDTO userDTO){
-        try{
-            return new ResponseEntity<>(userService.create(userDTO), HttpStatus.CREATED);
-        } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('admin:read')")
+    @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable final Integer id) {
         return ResponseEntity.ok(userService.get(id));
     }

@@ -1,7 +1,7 @@
 package ba.unsa.etf.nwt.user_service.service;
 
 import ba.unsa.etf.nwt.user_service.domain.User;
-import ba.unsa.etf.nwt.user_service.repos.UserRepository;
+import ba.unsa.etf.nwt.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

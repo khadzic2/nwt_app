@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class SelectedSpecifications {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

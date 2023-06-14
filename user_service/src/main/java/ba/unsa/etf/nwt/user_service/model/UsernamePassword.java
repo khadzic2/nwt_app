@@ -27,7 +27,6 @@ public class UsernamePassword implements UserDetails {
         this.username = username;
         this.password = password;
     }
-
     public UsernamePassword() {
         super();
     }

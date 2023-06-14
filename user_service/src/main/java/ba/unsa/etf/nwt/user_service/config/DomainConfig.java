@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
-
-
 @Configuration
 @EntityScan("ba.unsa.etf.nwt.user_service")
 @EnableJpaRepositories("ba.unsa.etf.nwt.user_service")

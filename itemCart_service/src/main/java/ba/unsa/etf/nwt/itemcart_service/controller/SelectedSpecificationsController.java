@@ -1,8 +1,5 @@
 package ba.unsa.etf.nwt.itemcart_service.controller;
-
-import ba.unsa.etf.nwt.itemcart_service.model.Cart;
 import ba.unsa.etf.nwt.itemcart_service.model.SelectedSpecifications;
-import ba.unsa.etf.nwt.itemcart_service.service.CartService;
 import ba.unsa.etf.nwt.itemcart_service.service.SelectedSpecificationsService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

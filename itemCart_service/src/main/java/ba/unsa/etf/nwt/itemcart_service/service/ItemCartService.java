@@ -63,8 +63,8 @@ public class ItemCartService {
     }
 
     private ItemCartDTO mapToDTO(final ItemCart itemCart, final ItemCartDTO itemCartDTO) {
-        itemCartDTO.setId(itemCart.getId());
         itemCartDTO.setCartId(itemCart.getCart().getId());
+        itemCartDTO.setSelectedSpecificationsId(itemCart.getSelectedSpecifications().getId());
         itemCartDTO.setItemId(itemCart.getItemId());
         itemCartDTO.setOrderId(itemCart.getOrderId());
         return itemCartDTO;

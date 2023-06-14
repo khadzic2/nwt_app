@@ -1,7 +1,6 @@
-package ba.unsa.etf.nwt.user_service.repos;
+package ba.unsa.etf.nwt.user_service.repository;
 
 import java.util.Optional;
-
 import ba.unsa.etf.nwt.user_service.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
