@@ -1,9 +1,4 @@
 package ba.unsa.etf.nwt.itemcart_service.DTO;
-
-import ba.unsa.etf.nwt.itemcart_service.model.Cart;
-import ba.unsa.etf.nwt.itemcart_service.model.ItemCart;
-import ba.unsa.etf.nwt.itemcart_service.model.SelectedSpecifications;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
