@@ -46,11 +46,11 @@ public class OrderServiceApplication {
             stateRepository.save(state4);
             stateRepository.save(state5);
 
-            Orders orders1 = new Orders(1, date1, state1);
-            Orders orders2 = new Orders(1, date2, state1);
-            Orders orders3 = new Orders(1, date3, state2);
-            Orders orders4 = new Orders(1, date4, state3);
-            Orders orders5 = new Orders(1, date5, state4);
+            Orders orders1 = new Orders(1, date1, state1,false);
+            Orders orders2 = new Orders(1, date2, state1,false);
+            Orders orders3 = new Orders(1, date3, state2,false);
+            Orders orders4 = new Orders(1, date4, state3,false);
+            Orders orders5 = new Orders(1, date5, state4,false);
 
             orderRepository.save(orders1);
             orderRepository.save(orders2);

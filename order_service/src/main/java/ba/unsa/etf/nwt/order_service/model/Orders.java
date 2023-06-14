@@ -24,17 +24,20 @@ public class Orders {
     private State state;
     @NotNull(message = "User of order can't be null")
     private Integer userId;
-
+    private Boolean deleted;
     @JsonIgnoreProperties("orders")
     @OneToMany(mappedBy = "orders",fetch = FetchType.EAGER)
     private List<OrderItems> items;
 
-    public Orders(){}
+    public Orders(){
+        this.deleted = false;
+    }
 
-    public Orders(Integer userId, Date date, State state) {
+    public Orders(Integer userId, Date date, State state, Boolean deleted) {
         this.userId = userId;
         this.date = date;
         this.state = state;
+        this.deleted = deleted;
     }
 
     public Integer getId() {
@@ -56,6 +59,8 @@ public class Orders {
         return userId;
     }
 
+    public Boolean getDeleted() {return deleted;}
+
     public void setItems(List<OrderItems> items) {
         this.items = items;
     }
@@ -71,4 +76,6 @@ public class Orders {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    public void setDeleted(Boolean deleted) {this.deleted = deleted;}
 }

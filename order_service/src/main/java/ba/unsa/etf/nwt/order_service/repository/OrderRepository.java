@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Orders,Integer> {
-    @Query(value = "select * from orders o where o.user_id=?1", nativeQuery = true)
+    @Query(value = "select * from orders o where o.user_id=?1 and o.deleted=false", nativeQuery = true)
     List<Orders> getOrdersFromUser(Integer userId);
     @Query(value = "select date_id from orders o where o.id=?1", nativeQuery = true)
     Integer getDateIdForOrder(Integer id);

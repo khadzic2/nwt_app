@@ -16,13 +16,14 @@ public class OrdersDTO {
     private Integer stateId;
     @NotNull(message = "User of order can't be null")
     private Integer userId;
-
+    private Boolean deleted;
     public OrdersDTO() {
+        this.deleted = false;
     }
-
     public OrdersDTO(Integer dateId, Integer stateId, Integer userId) {
         this.dateId = dateId;
         this.stateId = stateId;
         this.userId = userId;
+        this.deleted = false;
     }
 }
