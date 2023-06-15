@@ -8,7 +8,7 @@
 		<version>3.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>ba.unsa.etf.nwt</groupId>
 	<artifactId>SystemEventsService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SystemEventsService</name>

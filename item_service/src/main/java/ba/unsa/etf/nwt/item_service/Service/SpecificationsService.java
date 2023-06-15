@@ -28,7 +28,7 @@ public class SpecificationsService {
     }
 
     public Specifications getSpecificaionsById(Integer id){
-        return specificationsRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+        return specificationsRepository.findById(id).orElseThrow(()-> new NotFoundException(id,"specifications"));
     }
 
     public Integer addSpecifications(SpecificationsDTO specificationsDTO){
@@ -45,20 +45,12 @@ public class SpecificationsService {
         specificationsRepository.deleteAll();
     }
 
-   /* public Specifications updateSpecifications(Specifications newSpecification, Integer id){
-        Specifications oldSpecifications = getSpecificaionsById(id);
-
-        oldSpecifications.setSpecifications(newSpecification.getSpecifications());
-
-        specificationsRepository.save(oldSpecifications);
-        return oldSpecifications;
-    }*/
-
     private void mapToEntity(final SpecificationsDTO specificationsDTO, final Specifications specifications) {
         specifications.setColors(specificationsDTO.getColors());
         specifications.setDepth(specificationsDTO.getDepth());
         specifications.setHeight(specificationsDTO.getHeight());
         specifications.setWidth(specificationsDTO.getWidth());
+        specifications.setMaterial(specificationsDTO.getMaterial());
     }
 
     private SpecificationsDTO mapToDTO(final Specifications specifications, final SpecificationsDTO specificationsDTO) {
@@ -67,6 +59,7 @@ public class SpecificationsService {
         specificationsDTO.setDepth(specifications.getDepth());
         specificationsDTO.setHeight(specifications.getHeight());
         specificationsDTO.setWidth(specifications.getWidth());
+        specificationsDTO.setMaterial(specifications.getMaterial());
         return specificationsDTO;
     }
 }

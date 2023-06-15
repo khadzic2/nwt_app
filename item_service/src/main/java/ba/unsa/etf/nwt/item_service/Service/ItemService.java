@@ -1,24 +1,22 @@
 package ba.unsa.etf.nwt.item_service.Service;
 
-import ba.unsa.etf.nwt.item_service.DTO.ItemCategoryDTO;
 import ba.unsa.etf.nwt.item_service.DTO.ItemDTO;
 import ba.unsa.etf.nwt.item_service.Exceptions.NotFoundException;
+import ba.unsa.etf.nwt.item_service.Model.Image;
 import ba.unsa.etf.nwt.item_service.Model.Item;
 import ba.unsa.etf.nwt.item_service.Model.ItemCategory;
+import ba.unsa.etf.nwt.item_service.Model.Specifications;
+import ba.unsa.etf.nwt.item_service.Repository.ImageRepository;
+import ba.unsa.etf.nwt.item_service.Repository.ItemCategoryRepository;
 import ba.unsa.etf.nwt.item_service.Repository.ItemRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import ba.unsa.etf.nwt.item_service.Repository.SpecificationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import ba.unsa.etf.nwt.item_service.Response.CartExistsResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,15 +25,21 @@ public class ItemService {
     @Autowired
     private final ItemRepository itemRepository;
     @Autowired
+    private final ImageRepository imageRepository;
+    @Autowired
+    private final ItemCategoryRepository itemCategoryRepository;
+    @Autowired
+    private final SpecificationsRepository specificationsRepository;
+    @Autowired
     private RestTemplate restTemplate;
 
     private final DiscoveryClient discoveryClient;
-    private List<Item> cart;
 
-
-    public ItemService(RestTemplate restTemplate, DiscoveryClient discoveryClient, ItemRepository itemRepository) {
+    public ItemService(RestTemplate restTemplate, DiscoveryClient discoveryClient, ItemRepository itemRepository, ImageRepository imageRepository, ItemCategoryRepository itemCategoryRepository, SpecificationsRepository specificationsRepository) {
         this.itemRepository = itemRepository;
-
+        this.imageRepository = imageRepository;
+        this.itemCategoryRepository = itemCategoryRepository;
+        this.specificationsRepository = specificationsRepository;
         this.restTemplate = restTemplate;
         this.discoveryClient = discoveryClient;
     }
@@ -50,35 +54,22 @@ public class ItemService {
         return itemRepository.save(item).getId();
     }
 
-    public Item getItemById(Integer id){
-        return itemRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+    public ItemDTO getItemById(Integer id){
+        return itemRepository.findById(id).map(item->mapToDTO(item,new ItemDTO())).orElseThrow(()-> new NotFoundException(id,"item"));
     }
 
-    public Item addItem(Item items){
-        return itemRepository.save(items);
-    }
-
-    public void deleteItem(Integer id){
-        itemRepository.deleteById(id);
-    }
+    public void deleteItem(Integer id){itemRepository.deleteById(id);}
 
     public void deleteAll(){
         itemRepository.deleteAll();
     }
 
-    public Item updateItem(Item newItem, Integer id){
-        Item oldItem = getItemById(id);
-
-        oldItem.setName(newItem.getName());
-        oldItem.setDescription(newItem.getDescription());
-        oldItem.setManufacturingdays(newItem.getManufacturingdays());
-
-        itemRepository.save(oldItem);
-        return oldItem;
-    }
-
     public Integer getDaysByItem(Integer id) {
         return itemRepository.getDaysByItem(id);
+    }
+
+    public List<ItemDTO> getItemsFromCategory(Integer idCat){
+        return itemRepository.getItemsFromCategory(idCat).stream().map(i->mapToDTO(i,new ItemDTO())).collect(Collectors.toList());
     }
 
     public Boolean itemInCart(Integer id){
@@ -111,6 +102,12 @@ public class ItemService {
         item.setDescription(itemDTO.getDescription());
         item.setManufacturingdays(itemDTO.getManufacturingdays());
         item.setPrice(itemDTO.getPrice());
+        Image image = imageRepository.findById(itemDTO.getImageId()).orElseThrow(()->new NotFoundException(itemDTO.getImageId(),"image"));
+        ItemCategory itemCategory = itemCategoryRepository.findById(itemDTO.getItemCategoryId()).orElseThrow(()->new NotFoundException(itemDTO.getItemCategoryId(),"category"));
+        Specifications specifications = specificationsRepository.findById(itemDTO.getSpecificationsId()).orElseThrow(()->new NotFoundException(itemDTO.getSpecificationsId(),"specifications"));
+        item.setImage(image);
+        item.setCategory(itemCategory);
+        item.setSpecifications(specifications);
     }
 
     private ItemDTO mapToDTO(final Item item, final ItemDTO itemDTO) {
@@ -119,9 +116,9 @@ public class ItemService {
         itemDTO.setDescription(item.getDescription());
         itemDTO.setManufacturingdays(item.getManufacturingdays());
         itemDTO.setPrice(item.getPrice());
-        itemDTO.setCompared(item.isCompared());
         itemDTO.setItemCategoryId(item.getItemCategory().getId());
         itemDTO.setSpecificationsId(item.getSpecifications().getId());
+        itemDTO.setImageId(item.getImage().getId());
         return itemDTO;
     }
 

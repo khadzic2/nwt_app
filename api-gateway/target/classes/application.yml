@@ -40,7 +40,7 @@ spring:
         - id: item-service
           uri: http://localhost:8086
           predicates:
-            - Path=/api/items/**
+            - Path=/api/items/**,/api/image/**
           filters:
             - AuthenticationFilter
             - StripPrefix=0

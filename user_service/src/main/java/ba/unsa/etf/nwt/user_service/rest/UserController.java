@@ -24,7 +24,6 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @ComponentScan("ba.unsa.etf.nwt.user_service")
-@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
 
     private final UserService userService;
@@ -53,8 +52,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('admin:read')")
+    @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable final Integer id) {
         return ResponseEntity.ok(userService.get(id));
     }

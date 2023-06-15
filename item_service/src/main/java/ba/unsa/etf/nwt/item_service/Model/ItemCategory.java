@@ -14,9 +14,9 @@ public class ItemCategory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String category_name;
+    private String room;
 
-
+    private String typeOfItem;
     @OneToMany(mappedBy = "itemCategory")
     @JsonIgnoreProperties("itemCategory")
     private List<Item> items;
@@ -24,16 +24,21 @@ public class ItemCategory {
     public ItemCategory() {
     }
 
+    public ItemCategory(String room, String typeOfItem) {
+        this.room = room;
+        this.typeOfItem = typeOfItem;
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getRoom() {
+        return room;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setRoom(String category_name) {
+        this.room = category_name;
     }
 
     public List<Item> getItems() {
@@ -44,4 +49,11 @@ public class ItemCategory {
         this.items = items;
     }
 
+    public String getTypeOfItem() {
+        return typeOfItem;
+    }
+
+    public void setTypeOfItem(String typeOfItem) {
+        this.typeOfItem = typeOfItem;
+    }
 }

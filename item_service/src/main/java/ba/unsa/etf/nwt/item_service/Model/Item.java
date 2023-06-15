@@ -22,8 +22,6 @@ public class Item {
     @NotNull(message="Manufacturing days can't be null!")
     private Integer manufacturingdays;
 
-    private boolean compared;
-
     @OneToOne (fetch = FetchType.EAGER)
     @JsonIgnoreProperties("item")
     @JoinColumn(name = "image_id")
@@ -39,16 +37,13 @@ public class Item {
     private ItemCategory itemCategory;
 
 
-    public Item() {
-        compared=false;
-    }
+    public Item() {}
     public Item(String name, String description, Double price, Integer manufacturingdays,
-                Specifications specifications, boolean compared, Image image, ItemCategory category) {
+                Specifications specifications, Image image, ItemCategory category) {
         this.name = name;
         this.description = description;
         this.price=price;
         this.manufacturingdays=manufacturingdays;
-        this.compared=compared;
         this.specifications=specifications;
         this.image=image;
         this.itemCategory=category;
@@ -84,24 +79,12 @@ public class Item {
         this.manufacturingdays = manufacturingdays;
     }
 
-    public boolean isCompared() {
-        return compared;
-    }
-
-    public void setCompared(boolean compared) {
-        this.compared = compared;
-    }
-
     public Double getPrice() {
         return price;
     }
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public ItemCategory getCategory() {
-        return itemCategory;
     }
 
     public void setCategory(ItemCategory itemCategory) {
@@ -126,9 +109,5 @@ public class Item {
 
     public ItemCategory getItemCategory() {
         return itemCategory;
-    }
-
-    public void setItemCategory(ItemCategory itemCategory) {
-        this.itemCategory = itemCategory;
     }
 }

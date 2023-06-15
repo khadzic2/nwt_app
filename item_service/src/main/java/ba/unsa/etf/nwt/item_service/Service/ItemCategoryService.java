@@ -23,12 +23,16 @@ public class ItemCategoryService {
         return itemCategoryRepository.findAll().stream().map(date -> mapToDTO(date, new ItemCategoryDTO())).collect(Collectors.toList());
     }
 
-    public ItemCategory getCategoryById(Integer id){
-        return itemCategoryRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+    public List<String> getRooms(){
+        return itemCategoryRepository.getCategoriesRooms();
     }
 
-    public ItemCategory addCategory(ItemCategory categories){
-        return itemCategoryRepository.save(categories);
+    public List<ItemCategoryDTO> getCategoryByName(String room){
+        return itemCategoryRepository.getCategoryByName(room).stream().map(c->mapToDTO(c,new ItemCategoryDTO())).collect(Collectors.toList());
+    }
+
+    public ItemCategoryDTO getCategoryById(Integer id){
+        return itemCategoryRepository.findById(id).map(category->mapToDTO(category,new ItemCategoryDTO())).orElseThrow(()-> new NotFoundException(id,"category"));
     }
 
     public Integer addCategory(ItemCategoryDTO itemCategoryDTO){
@@ -37,21 +41,15 @@ public class ItemCategoryService {
         return itemCategoryRepository.save(itemCategory).getId();
     }
 
-    public void deleteCategory(Integer id){
-        itemCategoryRepository.deleteById(id);
-    }
-
-    public void deleteAll(){
-        itemCategoryRepository.deleteAll();
-    }
-
     private void mapToEntity(final ItemCategoryDTO itemCategoryDTO, final ItemCategory itemCategory) {
-        itemCategory.setCategory_name(itemCategoryDTO.getCategory_name());
+        itemCategory.setRoom(itemCategoryDTO.getRoom());
+        itemCategory.setTypeOfItem(itemCategoryDTO.getTypeOfItem());
     }
 
     private ItemCategoryDTO mapToDTO(final ItemCategory itemCategory, final ItemCategoryDTO itemCategoryDTO) {
         itemCategoryDTO.setId(itemCategory.getId());
-        itemCategoryDTO.setCategory_name(itemCategory.getCategory_name());
+        itemCategoryDTO.setRoom(itemCategory.getRoom());
+        itemCategoryDTO.setTypeOfItem(itemCategory.getTypeOfItem());
         return itemCategoryDTO;
     }
 
