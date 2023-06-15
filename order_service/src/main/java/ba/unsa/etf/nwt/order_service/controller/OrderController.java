@@ -58,7 +58,7 @@ public class OrderController {
         //Integer idDate = ordersService.getDateIdForOrder(id);
         ordersService.deleteOrder(id);
         //dateService.deleteDate(idDate);
-        //publisher.send(id);
+        publisher.send(ordersService.getOrderById(id));
         return new ResponseEntity<>("Successfully deleted!",HttpStatus.OK);
     }
 

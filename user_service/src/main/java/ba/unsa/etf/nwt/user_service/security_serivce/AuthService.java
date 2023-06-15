@@ -38,14 +38,14 @@ public class AuthService {
     //inject-amo PasswordEncoder iz AuthConfig
     //da mozemo u saveUser da sacuvamo enkriptovan password
 
-    public String saveUser(UserDTO userDTO){
+    public Integer saveUser(UserDTO userDTO){
         userDTO.setPassword(authConfig.passwordEncoder.encode(userDTO.getPassword()));
         String jwt = jwtService.generateToken(userDTO.getUsername(), userDTO.getRole());
         Integer newUserId = userService.create(userDTO);
         User savedUser = userRepository
                 .getUserByUsername(userDTO.getUsername()).get();
         Token token = saveUserToken(jwt, savedUser);
-        return "User added with id: "+ newUserId;
+        return newUserId;
     }
 
     private void revokeAllUserTokens(User user){

@@ -43,12 +43,12 @@ public class ItemController {
         return new ResponseEntity<>(itemService.getDaysByItem(id), HttpStatus.OK);
     }
 
-    @GetMapping("/item/cart/cartExist")
+    @GetMapping("/item/cart/cartExist/{id}")
     public ResponseEntity<Boolean> itemInCart(@PathVariable Integer id){
         return ResponseEntity.ok(itemService.itemInCart(id));
     }
 
-    @GetMapping("/item/order/orderExist")
+    @GetMapping("/item/order/orderExist/{id}")
     public ResponseEntity<Boolean> itemInOrder(@PathVariable Integer id){
        return ResponseEntity.ok(itemService.itemInOrder(id));
     }

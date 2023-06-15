@@ -21,12 +21,12 @@ public class ItemCartController {
         this.itemCartService = itemCartService;
     }
 
-    //@PreAuthorize("hasAuthority('admin:read')")
+    @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping()
     public ResponseEntity<List<ItemCartDTO>> all() {
         return new ResponseEntity<>(itemCartService.getAllItemCarts(), HttpStatus.OK);
     }
-    //@PreAuthorize("hasAuthority('customer:create')")
+    @PreAuthorize("hasAuthority('customer:create')")
     @PostMapping("/item_cart")
     public ResponseEntity<Integer> newItemCart(@RequestBody @Valid ItemCartDTO newCart) {
         return new ResponseEntity<>(itemCartService.add(newCart),HttpStatus.CREATED);

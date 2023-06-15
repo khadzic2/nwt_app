@@ -2,9 +2,12 @@ package ba.unsa.etf.nwt.itemcart_service.service;
 
 import ba.unsa.etf.nwt.itemcart_service.DTO.ItemCartDTO;
 import ba.unsa.etf.nwt.itemcart_service.exception.NotFoundException;
+import ba.unsa.etf.nwt.itemcart_service.model.Cart;
 import ba.unsa.etf.nwt.itemcart_service.model.ItemCart;
 import ba.unsa.etf.nwt.itemcart_service.model.SelectedSpecifications;
+import ba.unsa.etf.nwt.itemcart_service.repository.CartRepository;
 import ba.unsa.etf.nwt.itemcart_service.repository.ItemCartRepository;
+import ba.unsa.etf.nwt.itemcart_service.repository.SelectedSpecificationsRepository;
 import ba.unsa.etf.nwt.itemcart_service.response.GetItemsResponse;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,14 @@ import java.util.stream.Collectors;
 @Service
 public class ItemCartService {
     private final ItemCartRepository itemCartRepository;
+    private final SelectedSpecificationsRepository selectedSpecificationsRepository;
 
-    public ItemCartService(ItemCartRepository itemCartRepository) {
+    private final CartRepository cartRepository;
+
+    public ItemCartService(CartRepository cartRepository,ItemCartRepository itemCartRepository, SelectedSpecificationsRepository selectedSpecificationsRepository) {
         this.itemCartRepository = itemCartRepository;
+        this.selectedSpecificationsRepository = selectedSpecificationsRepository;
+        this.cartRepository = cartRepository;
     }
 
     public List<ItemCartDTO> getAllItemCarts(){
@@ -73,5 +81,9 @@ public class ItemCartService {
     private void mapToEntity(final ItemCartDTO itemCartDTO, final ItemCart itemCart) {
         itemCart.setItemId(itemCartDTO.getItemId());
         itemCart.setOrderId(itemCartDTO.getOrderId());
+        SelectedSpecifications selectedSpecifications = selectedSpecificationsRepository.findById(itemCartDTO.getSelectedSpecificationsId()).orElseThrow(()->new NotFoundException(itemCartDTO.getSelectedSpecificationsId(), "selected specifications"));
+        Cart cart = cartRepository.findById(itemCartDTO.getCartId()).orElseThrow(()->new NotFoundException(itemCartDTO.getCartId(), "cart"));
+        itemCart.setSelectedSpecifications(selectedSpecifications);
+        itemCart.setCart(cart);
     }
 }

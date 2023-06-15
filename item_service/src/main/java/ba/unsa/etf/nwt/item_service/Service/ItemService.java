@@ -87,11 +87,11 @@ public class ItemService {
 
     public Boolean itemInOrder(Integer id){
         Boolean exist = false;
-        ServiceInstance serviceInstance = discoveryClient.getInstances("order-service").get(0);
+        ServiceInstance serviceInstance = discoveryClient.getInstances("orders-service").get(0);
         String resourceURL = serviceInstance.getUri() + "/api/order/" + id + "/orderExist";
-        ResponseEntity<Integer> response = restTemplate.getForEntity(resourceURL, Integer.class);
-        Integer cartExistence = response.getBody();
-        if (cartExistence != null && cartExistence == 1) {
+        ResponseEntity<Boolean> response = restTemplate.getForEntity(resourceURL, Boolean.class);
+        Boolean cartExistence = response.getBody();
+        if (cartExistence != null && cartExistence == true) {
             exist = true;
         }
         return exist;
