@@ -2,7 +2,7 @@ package ba.unsa.etf.nwt.user_service.service;
 
 import ba.unsa.etf.nwt.user_service.domain.User;
 import ba.unsa.etf.nwt.user_service.model.UserDTO;
-import ba.unsa.etf.nwt.user_service.repos.UserRepository;
+import ba.unsa.etf.nwt.user_service.repository.UserRepository;
 import ba.unsa.etf.nwt.user_service.util.NotFoundException;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package ba.unsa.etf.nwt.itemcart_service.controller;
 
 import ba.unsa.etf.nwt.itemcart_service.DTO.CartDTO;
+import ba.unsa.etf.nwt.itemcart_service.DTO.ItemCartDTO;
 import ba.unsa.etf.nwt.itemcart_service.model.Cart;
 import ba.unsa.etf.nwt.itemcart_service.service.CartService;
 import jakarta.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 @RequestMapping(path = "/api/carts")
 @RestController
@@ -26,8 +28,8 @@ public class CartController {
     }
     @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/cart/{id}")
-    ResponseEntity<Cart> one(@PathVariable Integer id) {
-        return new ResponseEntity<>(cartService.getCartById(id),HttpStatus.OK);
+    ResponseEntity<Collection<ItemCartDTO>> one(@PathVariable Integer id) {
+        return new ResponseEntity<>(cartService.getCartItemsById(id),HttpStatus.OK);
     }
     @PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/cart/user/{id}")

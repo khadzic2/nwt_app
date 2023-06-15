@@ -1,5 +1,4 @@
 package ba.unsa.etf.nwt.user_service.logging;
-
 import ba.unsa.etf.nwt.system_events_service.grpc.ActionsRequest;
 import ba.unsa.etf.nwt.system_events_service.grpc.ActionsServiceGrpc;
 import com.google.protobuf.Timestamp;

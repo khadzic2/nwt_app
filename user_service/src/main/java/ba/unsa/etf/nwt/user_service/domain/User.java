@@ -118,9 +118,6 @@ public class User implements UserDetails {
                 .collect(Collectors.toList()));
 
         return authorities;
-
-
-       // return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     public String getPassword() {

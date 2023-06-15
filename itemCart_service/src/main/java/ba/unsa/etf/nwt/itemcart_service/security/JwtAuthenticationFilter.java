@@ -15,11 +15,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 import java.security.Key;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
@@ -40,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
-            logger.info("authHeader je null ili ne pocinje sa bearer ");
+            logger.info("authHeader je null ili ne pocinje sa bearer");
             filterChain.doFilter(request,response);
             return;
         }

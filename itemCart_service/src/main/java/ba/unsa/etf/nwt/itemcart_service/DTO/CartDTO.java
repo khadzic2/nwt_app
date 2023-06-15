@@ -5,25 +5,20 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Collection;
-import java.util.List;
 
 @Data
 @Getter
 @Setter
 public class CartDTO {
     private Integer id;
-    private Collection<ItemCart> itemCarts;
     @NotNull(message="User id can't be null!")
     private Integer userId;
-
 
     public CartDTO() {
     }
 
     public CartDTO(Collection<ItemCart> itemCarts, Integer userId) {
-        this.itemCarts = itemCarts;
         this.userId = userId;
     }
 }

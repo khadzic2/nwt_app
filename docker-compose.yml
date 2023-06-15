@@ -20,6 +20,8 @@ services:
     restart: always
     expose:
       - 3306
+    ports:
+      - "3306:3306"
     networks:
       - nwtApp
     volumes:
@@ -40,6 +42,8 @@ services:
       - NwtApp_GIT_PASSWORD=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
     expose:
       - 8888
+    ports:
+      - "8888:8888"
     networks:
       - nwtApp
     deploy:
@@ -82,6 +86,8 @@ services:
       - MYSQL_PASSWORD = root
     expose:
       - 8088
+    ports:
+      - "8088:8088"
     depends_on:
       - configuration-service
       - eureka-service
@@ -108,6 +114,8 @@ services:
       - MYSQL_PASSWORD = root
     expose:
       - 8084
+    ports:
+      - "8084:8084"
     networks:
       - nwtApp
     depends_on:
@@ -134,6 +142,8 @@ services:
       - MYSQL_PASSWORD = root
     expose:
       - 8086
+    ports:
+      - "8086:8086"
     networks:
       - nwtApp
     depends_on:
@@ -163,6 +173,8 @@ services:
       - MYSQL_PASSWORD = root
     expose:
       - 8083
+    ports:
+      - "8083:8083"
     networks:
       - nwtApp
     depends_on:
@@ -192,6 +204,8 @@ services:
       - MYSQL_PASSWORD = root
     expose:
       - 8085
+    ports:
+      - "8085:8085"
     networks:
       - nwtApp
     depends_on:
