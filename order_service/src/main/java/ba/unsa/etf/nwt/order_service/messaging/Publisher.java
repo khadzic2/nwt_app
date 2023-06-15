@@ -1,5 +1,7 @@
 package ba.unsa.etf.nwt.order_service.messaging;
 
-public interface Publisher<T extends Integer> {
+import ba.unsa.etf.nwt.order_service.DTO.OrdersDTO;
+
+public interface Publisher<T extends OrdersDTO> {
     void send(T data);
 }

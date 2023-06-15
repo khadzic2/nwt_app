@@ -58,7 +58,7 @@ public class ImageService {
         return imageDTO;
     }
 
-    private void mapToEntity(final MultipartFile file, final Image image) throws IOException{
+    public void mapToEntity(final MultipartFile file, final Image image) throws IOException{
         image.setName(file.getOriginalFilename());
         image.setType(file.getContentType());
         image.setImageData(ImageUtil.compressImage(file.getBytes()));

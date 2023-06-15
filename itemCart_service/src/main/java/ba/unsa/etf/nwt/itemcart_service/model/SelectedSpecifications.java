@@ -2,6 +2,7 @@ package ba.unsa.etf.nwt.itemcart_service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -63,6 +64,14 @@ public class SelectedSpecifications {
         this.material = material;
     }
 
+    public Integer getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(Integer kolicina) {
+        this.kolicina = kolicina;
+    }
+
     @NotNull(message="height Can't be null!")
     private String height;
 
@@ -75,6 +84,9 @@ public class SelectedSpecifications {
     @NotNull(message="material Can't be null!")
     private String material;
 
+    @Min(value = 0,message = "kolicina can't be negative number")
+    private Integer kolicina;
+
     public Integer getId() {
         return id;
     }
@@ -82,12 +94,13 @@ public class SelectedSpecifications {
     public SelectedSpecifications() {
     }
 
-    public SelectedSpecifications(String color, String height, String width, String depth, String material) {
+    public SelectedSpecifications(String color, String height, String width, String depth, String material, Integer kolicina) {
         this.color = color;
         this.height = height;
         this.width = width;
         this.depth = depth;
         this.material = material;
+        this.kolicina = kolicina;
     }
 
 }

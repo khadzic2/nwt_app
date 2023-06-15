@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-@RequestMapping(path = "/api/specifications")
+@RequestMapping(path = "/api/selected_specifications")
 @RestController
 public class SelectedSpecificationsController {
     private final SelectedSpecificationsService selectedSpecificationsService;
@@ -14,13 +14,13 @@ public class SelectedSpecificationsController {
     public SelectedSpecificationsController(SelectedSpecificationsService selectedSpecificationsService) {
         this.selectedSpecificationsService = selectedSpecificationsService;
     }
-    @PreAuthorize("hasAuthority('customer:create')")
+    //@PreAuthorize("hasAuthority('customer:create')")
     @PostMapping()
     ResponseEntity<SelectedSpecifications> newSpecifications(@Valid @RequestBody SelectedSpecifications selectedSpecifications) {
         return new ResponseEntity<>(selectedSpecificationsService.add(selectedSpecifications),HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('customer:read')")
+    //@PreAuthorize("hasAuthority('customer:read')")
     @GetMapping("/{id}")
     ResponseEntity<SelectedSpecifications> one(@PathVariable Integer id) {
         return new ResponseEntity<>(selectedSpecificationsService.getSpecificationsById(id),HttpStatus.OK);

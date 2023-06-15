@@ -49,10 +49,6 @@ public class CartService {
         return itemsDTO;
     }
 
-    public Cart addCart(Cart cart){
-        return cartRepository.save(cart);
-    }
-
     public void deleteCart(Integer id){
         cartRepository.deleteById(id);
     }

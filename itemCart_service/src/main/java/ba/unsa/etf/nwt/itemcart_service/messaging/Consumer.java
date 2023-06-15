@@ -1,4 +1,6 @@
 package ba.unsa.etf.nwt.itemcart_service.messaging;
 
-public interface Consumer<T extends Integer> {
+import ba.unsa.etf.nwt.itemcart_service.DTO.OrdersDTO;
+
+public interface Consumer<T extends OrdersDTO> {
 }
